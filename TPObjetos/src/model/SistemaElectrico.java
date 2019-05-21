@@ -7,7 +7,7 @@ public class SistemaElectrico {
 	List<Cliente>clientes = new ArrayList<Cliente>();
 	List<Zona>zonas = new ArrayList<Zona>();
 	List<Tarifa>tarifas = new ArrayList<Tarifa>();
-	List<Medidor>medidores = new ArrayList<Medidor>();
+	List<Medidor>medidores = new ArrayList<Medidor>();// Martin Crea ABM de Medidor y todos los traer
 	
 	public SistemaElectrico(List<Zona> zonas, List<Tarifa> tarifas,
 			List<Cliente> clientes, List<Medidor> medidores) {
@@ -52,6 +52,42 @@ public class SistemaElectrico {
 	public void setmedidores(List<Medidor> medidores) {
 		this.medidores = medidores;
 	}
+	
+	// ----------------------------------------Comienzo ABM Medidor---------------------------------------------------
+	
+	
+	public boolean agregarMedidor(String domicilio, boolean esBaja, Cliente cliente, Tarifa tarifa)throws Exception {
+		if(traerMedidor(cliente)!=null)throw new Exception("El cliente ya exciste");
+		int id=1;
+		if (!medidores.isEmpty())id=medidores.get(medidores.size()-1).getNroSerie()+1;
+		Medidor medidor = new Medidor(id, domicilio, esBaja, cliente, tarifa);
+		medidores.add(medidor);
+		
+		return true;
+	}
+	
+	public boolean eliminarMedidor(Cliente cliente)throws Exception {
+		if(traerMedidor(cliente)==null)throw new Exception("El cliente no exciste");
+		Medidor medidor = traerMedidor(cliente);
+		medidores.remove(medidor);
+		return true;
+	}
+	
+	public Medidor traerMedidor(Cliente cliente) {
+		Medidor medidor = null;
+		int cont = 0;
+		while (medidores.size()>cont&&medidor==null) {
+			if(medidores.get(cont).getCliente().equals(cliente)) {
+				medidor = medidores.get(cont);
+				
+			}
+			cont++;
+		}
+		
+		return medidor; 
+	}
+	
+	// ----------------------------------------Fin ABM Medidor---------------------------------------------------
 	
 	
 }
