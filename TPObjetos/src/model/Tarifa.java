@@ -22,4 +22,8 @@ public class Tarifa {
 		return "Tarifa [servicio=" + servicio + "]";
 	}
 	
+	public boolean equals(Tarifa tarifa) {
+		return this.servicio==tarifa.servicio;
+	}
+	
 }
