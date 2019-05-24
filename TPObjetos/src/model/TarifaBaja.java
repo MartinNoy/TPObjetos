@@ -1,5 +1,28 @@
 package model;
 
-public class TarifaBaja extends Tarifa{
+import java.util.List;
+import java.util.ArrayList;
+
+public class TarifaBaja extends Tarifa {
+
+	private List<DetalleBaja> lstDetalle;
+
+	public TarifaBaja(String servicio, List<DetalleBaja> lstDetalle) {
+		super(servicio);
+		this.lstDetalle = lstDetalle;
+	}
+
+	public List<DetalleBaja> getLstDetalle() {
+		return lstDetalle;
+	}
+
+	public void setLstDetalle(List<DetalleBaja> lstDetalle) {
+		this.lstDetalle = lstDetalle;
+	}
+
+	@Override
+	public String toString() {
+		return "TarifaBaja [lstDetalle=" + lstDetalle + "]";
+	}
 
 }

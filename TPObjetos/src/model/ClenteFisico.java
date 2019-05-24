@@ -1,7 +1,5 @@
 package model;
 
-import model.DatosPersonales;
-
 public class ClenteFisico extends Cliente{
 	private DatosPersonales datosPersonales;
 	

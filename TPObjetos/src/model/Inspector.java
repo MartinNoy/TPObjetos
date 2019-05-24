@@ -1,7 +1,5 @@
 package model;
 
-import model.DatosPersonales;
-
 public class Inspector {
 	private int nroLegajo;
 	private DatosPersonales datosPersonales;

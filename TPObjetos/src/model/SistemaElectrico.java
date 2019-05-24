@@ -6,7 +6,7 @@ import java.util.List;
 public class SistemaElectrico {
 	List<Cliente>clientes = new ArrayList<Cliente>();
 	List<Zona>zonas = new ArrayList<Zona>();
-	List<Tarifa>tarifas = new ArrayList<Tarifa>();
+	List<Tarifa>tarifas = new ArrayList<Tarifa>(); // Franco: ABM Tarifa y sus traer
 	List<Medidor>medidores = new ArrayList<Medidor>();// Martin Crea ABM de Medidor y todos los traer
 	
 	public SistemaElectrico(List<Zona> zonas, List<Tarifa> tarifas,
@@ -88,6 +88,17 @@ public class SistemaElectrico {
 	}
 	
 	// ----------------------------------------Fin ABM Medidor---------------------------------------------------
+	
+	// ----------------------------------------Comienzo ABM Tarifa-----------------------------------------------
+	
+	public boolean agregarTarifa() {
+		boolean agregar = false;
+		return agregar;
+	}
+	
+	// ----------------------------------------Fin ABM Tarifa----------------------------------------------------
+	
+	
 	
 	
 }
