@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,13 +9,15 @@ public class SistemaElectrico {
 	List<Cliente> clientes = new ArrayList<Cliente>();
 	List<Zona> zonas = new ArrayList<Zona>(); // Gabriel: ABM Zona y los traer
 	List<Tarifa> tarifas = new ArrayList<Tarifa>(); // Franco: ABM Tarifa y sus traer
-	List<Medidor> medidores = new ArrayList<Medidor>();// Martin Crea ABM de Medidor y todos los traer
+	List<Medidor> medidores = new ArrayList<Medidor>(); // Martin Crea ABM de Medidor y todos los traer
+	List<Lectura> lecturas = new ArrayList<Lectura>(); // Gabriel: ABM Lectura y sus traer
 
 	public SistemaElectrico(List<Zona> zonas, List<Tarifa> tarifas, List<Cliente> clientes, List<Medidor> medidores) {
 		this.clientes = clientes;
 		this.zonas = zonas;
 		this.tarifas = tarifas;
 		this.medidores = medidores;
+		this.lecturas = lecturas;
 	}
 
 	public SistemaElectrico() {
@@ -51,8 +55,19 @@ public class SistemaElectrico {
 	public void setmedidores(List<Medidor> medidores) {
 		this.medidores = medidores;
 	}
+	
+	public List<Lectura> getLecturas() {
+		return lecturas;
+	}
+
+	public void setLecturas(List<Lectura> lecturas) {
+		this.lecturas = lecturas;
+	}
+	
 
 	// ----------------------------------------Comienzo ABM Medidor---------------------------------------------------
+
+	
 
 	public boolean agregarMedidor(String domicilio, boolean esBaja, Cliente cliente, Tarifa tarifa) throws Exception {
 		if (traerMedidor(cliente) != null)
@@ -198,6 +213,131 @@ public class SistemaElectrico {
 	}
 	
 	
-	// ----------------------------------------Fin ABM Zona----------------------------------------------------
+	// ----------------------------------------Fin ABM Zona---------------------------------------------------------
+	
+	// ----------------------------------------Comienzo ABM Lectura-------------------------------------------------
+	
+	public boolean agregarLectura(Lectura lectura)throws Exception {
+		Lectura existeLectura=traerLectura(lectura.getIdLectura());
+		if(existeLectura!=null) {
+			throw new Exception ("No puedo agregar la lectura"+lectura.getIdLectura()+" ya existe");
+		}
+		return lecturas.add(lectura);
+	}
+	
+	public boolean agregarLectura(Alta Alta)throws Exception {
 
+	    Lectura existeLectura=traerLectura(Alta.getIdLectura());
+
+		if(existeLectura!=null) {
+			throw new Exception ("No puedo agregar la lectura"+Alta.getIdLectura()+" ya existe");
+		}
+		return lecturas.add(Alta);
+	}
+	
+	 public boolean agregarLectura(Baja Baja)throws Exception {
+
+	    	Lectura existeLectura=traerLectura(Baja.getIdLectura());
+
+			if(existeLectura!=null) {
+				throw new Exception ("No puedo agregar la lectura"+Baja.getIdLectura()+" ya existe");
+			}
+			return lecturas.add(Baja);
+	}
+	 
+	 
+	 public boolean eliminarLectura(int idLectura)throws Exception {
+			Lectura existeLectura=traerLectura(idLectura);
+
+			if(existeLectura==null) 
+				throw new Exception ("La lectura con id: "+idLectura+" ,NO existe para eliminar");
+			return lecturas.remove(existeLectura);
+		}
+	 
+	 
+	 public boolean modificarAlta(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumoHsPico, int consumoHsValle, int consumoHsResto) 
+				throws Exception {
+			Alta existeLectura=traerAlta(idLectura);
+
+			if(existeLectura==null) 
+				throw new Exception ("La lectura Alta Demanda NO existe");
+			existeLectura.setFecha(fecha);
+			existeLectura.setHora(hora);
+			existeLectura.setInspector(inspector);
+			existeLectura.setMedidor(medidor);
+			existeLectura.setConsumoHsPico(consumoHsPico);
+			existeLectura.setConsumoHsResto(consumoHsResto);
+			existeLectura.setConsumoHsValle(consumoHsValle);
+			return true;
+		}
+	 
+	 
+	 public boolean modificarBaja(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumo )throws Exception  { 
+			Baja existeLectura=traerBaja(idLectura);
+
+			if(existeLectura==null) 
+				throw new Exception ("La lectura Alta Demanda NO existe");	
+			existeLectura.setFecha(fecha);
+			existeLectura.setHora(hora);
+			existeLectura.setInspector(inspector);
+			existeLectura.setMedidor(medidor);
+			existeLectura.setConsumo(consumo);
+			return true;
+		}
+	 
+	 public Lectura traerLectura(int idLectura){
+			int i=0;
+			Lectura lecturaEncontrada=null;
+			while (i<lecturas.size() && lecturaEncontrada==null) {
+				if(lecturas.get(i).getIdLectura()==idLectura) {		  
+					lecturaEncontrada=lecturas.get(i);		 
+				}	 
+				i++;	 
+			}
+			return lecturaEncontrada;
+		}
+	 
+	 public Alta traerAlta(int idLectura) {
+		  
+			int i=0;
+			boolean encontrada=false;
+			Alta lecturaEncontrada=null;
+
+			while (i<lecturas.size() && !encontrada) {
+				Lectura lectura = lecturas.get(i);
+				if(lectura instanceof Alta) {	
+					Alta lecturaAlta = (Alta)  lectura ;
+					if(lectura.getIdLectura()==idLectura) {
+						lecturaEncontrada= lecturaAlta;
+						encontrada=true;	
+					}	 
+				}
+				i++;
+			}
+			return lecturaEncontrada;
+		}
+	 
+	 public Baja traerBaja(int idLectura) {
+		  
+			int i=0;
+			boolean encontrada=false;
+			Baja lecturaEncontrada=null;
+
+			while (i<lecturas.size() && !encontrada) {
+				Lectura lectura = lecturas.get(i);
+				if(lectura instanceof Baja) {	
+					Baja lecturabaja = (Baja)  lectura ;
+					if(lectura.getIdLectura()==idLectura) {
+						lecturaEncontrada= lecturabaja;
+						encontrada=true;	
+					}	 
+				}
+				i++;
+			}
+			return lecturaEncontrada;
+		}
+	 
+	 // ----------------------------------------Fin ABM Lectura---------------------------------------------------------
+	 
+	 
 }
