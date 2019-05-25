@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SistemaElectrico {
 	List<Cliente> clientes = new ArrayList<Cliente>();
-	List<Zona> zonas = new ArrayList<Zona>();
+	List<Zona> zonas = new ArrayList<Zona>(); // Gabriel: ABM Zona y los traer
 	List<Tarifa> tarifas = new ArrayList<Tarifa>(); // Franco: ABM Tarifa y sus traer
 	List<Medidor> medidores = new ArrayList<Medidor>();// Martin Crea ABM de Medidor y todos los traer
 
@@ -56,7 +56,7 @@ public class SistemaElectrico {
 
 	public boolean agregarMedidor(String domicilio, boolean esBaja, Cliente cliente, Tarifa tarifa) throws Exception {
 		if (traerMedidor(cliente) != null)
-			throw new Exception("El cliente ya exciste");
+			throw new Exception("El cliente ya existe");
 		int id = 1;
 		if (!medidores.isEmpty())
 			id = medidores.get(medidores.size() - 1).getNroSerie() + 1;
@@ -68,7 +68,7 @@ public class SistemaElectrico {
 
 	public boolean eliminarMedidor(Cliente cliente) throws Exception {
 		if (traerMedidor(cliente) == null)
-			throw new Exception("El cliente no exciste");
+			throw new Exception("El cliente no existe");
 		Medidor medidor = traerMedidor(cliente);
 		medidores.remove(medidor);
 		return true;
@@ -143,5 +143,61 @@ public class SistemaElectrico {
 	}
 
 	// ----------------------------------------Fin ABM Tarifa----------------------------------------------------
+	
+	// ----------------------------------------Comienzo ABM Zona-------------------------------------------------
+	
+	public boolean agregarZona(Zona zona)throws Exception {
+		Zona existeZona=traerZona(zona.getIdZona());
+		if(existeZona!=null) {
+			throw new Exception ("Zona "+zona.getIdZona()+" ya existe");
+		}	
+		return zonas.add(zona);
+	}
+	
+	public boolean modificarZona(int idZona, String zona) throws Exception{
+		Zona existeZona=traerZona(idZona);
+		if(existeZona==null)throw new Exception ("La zona "+idZona+" no se puede modificar, no existe en la Lista");
+		existeZona.setNombre(zona);
+		return true;
+	}
+	
+	public boolean eliminarZona(int idZona) throws Exception{
+		Zona existeZona=traerZona(idZona);		
+		if(existeZona==null)			
+			throw new Exception ("La zona id:   "+idZona+" no existe para eliminar");	
+		return zonas.remove(existeZona);
+	}
+	
+	public Zona traerZona(String nombre) {
+		int i=0;
+		Zona zonaEncontrada=null;
+		while (i<zonas.size() && zonaEncontrada==null) {
+			if(zonas.get(i).getNombre().equals(nombre)) {		  
+				zonaEncontrada=zonas.get(i);		 
+			}	 
+			i++;	 
+		}
+		return zonaEncontrada;
+	}
+	
+	public Zona traerZona(int idZona){
+		int i=0;
+		Zona zonaEncontrada=null;
+		while (i<zonas.size() && zonaEncontrada==null) {
+			if(zonas.get(i).getIdZona()==idZona) {		  
+				zonaEncontrada=zonas.get(i);		 
+			}	 
+			i++;	 
+		}
+		return zonaEncontrada;
+	}
+
+	public Zona traerZona(Zona zona){
+		Zona zonaEncontrada=traerZona(zona.getIdZona());
+		return zonaEncontrada;
+	}
+	
+	
+	// ----------------------------------------Fin ABM Zona----------------------------------------------------
 
 }
