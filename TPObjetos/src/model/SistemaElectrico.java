@@ -12,7 +12,7 @@ public class SistemaElectrico {
 	List<Medidor> medidores = new ArrayList<Medidor>(); // Martin Crea ABM de Medidor y todos los traer
 	List<Lectura> lecturas = new ArrayList<Lectura>(); // Gabriel: ABM Lectura y sus traer
 
-	public SistemaElectrico(List<Zona> zonas, List<Tarifa> tarifas, List<Cliente> clientes, List<Medidor> medidores) {
+	public SistemaElectrico(List<Zona> zonas, List<Tarifa> tarifas, List<Cliente> clientes, List<Medidor> medidores, List<Lectura> lecturas ) {
 		this.clientes = clientes;
 		this.zonas = zonas;
 		this.tarifas = tarifas;
