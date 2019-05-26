@@ -88,6 +88,17 @@ public class SistemaElectrico {
 		medidores.remove(medidor);
 		return true;
 	}
+	
+	public boolean modificarmedidor(int nroSerie, String domicilioMedidor, boolean esBaja, Cliente cliente, Tarifa tarifa) throws Exception{
+		Medidor medidorModificar = traerMedidor(cliente);
+		if (medidorModificar==null)throw new Exception("El medidor no existe");
+		medidorModificar.setNroSerie(nroSerie);
+		medidorModificar.setDomicilioMedidor(domicilioMedidor);
+		medidorModificar.setEsBaja(esBaja);
+		medidorModificar.setCliente(cliente);
+		medidorModificar.setTarifa(tarifa);
+		return true;
+	}
 
 	public Medidor traerMedidor(Cliente cliente) {
 		Medidor medidor = null;
@@ -264,8 +275,7 @@ public class SistemaElectrico {
 				throws Exception {
 			Alta existeLectura=traerAlta(idLectura);
 
-			if(existeLectura==null) 
-				throw new Exception ("La lectura Alta Demanda NO existe");
+			if(existeLectura==null) throw new Exception ("La lectura Alta Demanda NO existe");
 			existeLectura.setFecha(fecha);
 			existeLectura.setHora(hora);
 			existeLectura.setInspector(inspector);
@@ -280,8 +290,7 @@ public class SistemaElectrico {
 	 public boolean modificarBaja(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumo )throws Exception  { 
 			Baja existeLectura=traerBaja(idLectura);
 
-			if(existeLectura==null) 
-				throw new Exception ("La lectura Alta Demanda NO existe");	
+			if(existeLectura==null) throw new Exception ("La lectura Alta Demanda NO existe");	
 			existeLectura.setFecha(fecha);
 			existeLectura.setHora(hora);
 			existeLectura.setInspector(inspector);
@@ -346,8 +355,8 @@ public class SistemaElectrico {
 	 
 	// --------------------------------------Comienzo ABM Cliente------------------------------------------------
 		
-		public boolean agregarClienteFisico(String zonaCliente, DatosPersonales datosPersonales) throws Exception {
-			if(traerClienteFisico(datosPersonales)!= null) throw new Exception("El cliente ya existe");
+		public boolean agregarCliente(String zonaCliente, DatosPersonales datosPersonales) throws Exception {
+			if(traerCliente(datosPersonales)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
 			Cliente cliente = new ClienteFisico(id, zonaCliente, datosPersonales);
@@ -355,8 +364,8 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public boolean agregarClienteJuridico(String zonaCliente, String razonSocial, int nroCUIT) throws Exception {
-			if(traerClienteJuridico(nroCUIT)!= null) throw new Exception("El cliente ya existe");
+		public boolean agregarCliente(String zonaCliente, String razonSocial, int nroCUIT) throws Exception {
+			if(traerCliente(nroCUIT)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
 			Cliente cliente = new ClienteJuridico(id, zonaCliente, razonSocial, nroCUIT);
@@ -364,18 +373,64 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public ClienteFisico traerClienteFisico(DatosPersonales datosPersonales) {
-			
-			return null;
+		public boolean eliminarCliente(int nroCUIT) throws Exception {
+			Cliente cliente = traerCliente(nroCUIT);
+			if (cliente==null) throw new Exception ("cliente no existe");
+			clientes.remove(cliente);
+			return true;
 		}
 		
-		public ClienteJuridico traerClienteJuridico(int nroCUIT) {
+		public boolean eliminarCliente(DatosPersonales datosPersonales) throws Exception {
+			Cliente cliente = traerCliente(datosPersonales);
+			if (cliente==null) throw new Exception ("cliente no existe");
+			clientes.remove(cliente);
+			return true;
+		}
+		
+		
+		
+		public Cliente traerCliente(DatosPersonales datosPersonales) {
 			Cliente cliente = null;
 			int cont = 0;
 			while(clientes.size()>cont && cliente==null) {
-				
+				if(clientes.get(cont) instanceof ClienteFisico) {
+					ClienteFisico clienteFisico = (ClienteFisico)clientes.get(cont);
+					if(clienteFisico.getDatosPersonales()==datosPersonales) {
+						cliente = clienteFisico;
+					}
+				}
 			}
-			return null;
+
+			return cliente;
+		}
+		
+		public boolean modificarCliente(DatosPersonales datosPersonales) throws Exception{
+			ClienteFisico clienteModificar = (ClienteFisico)traerCliente(datosPersonales);
+			if(clienteModificar == null)throw new Exception ("cliente no existe");
+			clienteModificar.setDatosPersonales(datosPersonales);
+			return true;
+		}
+		public boolean modificarCliente(int nroCUIT, String razonSocial) throws Exception{
+			ClienteJuridico clienteModificar = (ClienteJuridico)traerCliente(nroCUIT);
+			if(clienteModificar == null)throw new Exception ("cliente no existe");
+			clienteModificar.setNroCUIT(nroCUIT);
+			clienteModificar.setRazonSocial(razonSocial);
+			return true;
+		}
+		
+		public Cliente traerCliente(int nroCUIT) {
+			Cliente cliente = null;
+			int cont = 0;
+			while(clientes.size()>cont && cliente==null) {
+				if(clientes.get(cont) instanceof ClienteJuridico) {
+					ClienteJuridico clienteJuridico = (ClienteJuridico)clientes.get(cont);
+					if(clienteJuridico.getNroCUIT()==nroCUIT) {
+						cliente = clienteJuridico;
+					}
+				}
+			}
+
+			return cliente;
 		}
 	 
 	 //----------------------------------------Fin ABM Cliente---------------------------------------------------------
