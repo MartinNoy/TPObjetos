@@ -104,6 +104,11 @@ public class SistemaElectrico {
 	}
 
 	// ----------------------------------------Fin ABM Medidor---------------------------------------------------
+	
+	
+	
+	
+	
 
 	// ----------------------------------------Comienzo ABM Tarifa-----------------------------------------------
 
@@ -230,7 +235,7 @@ public class SistemaElectrico {
 	    Lectura existeLectura=traerLectura(Alta.getIdLectura());
 
 		if(existeLectura!=null) {
-			throw new Exception ("No puedo agregar la lectura"+Alta.getIdLectura()+" ya existe");
+			throw new Exception ("No puedo agregar la lectura"+Alta.getIdLectura()+", ya existe");
 		}
 		return lecturas.add(Alta);
 	}
@@ -339,5 +344,39 @@ public class SistemaElectrico {
 	 
 	 // ----------------------------------------Fin ABM Lectura---------------------------------------------------------
 	 
+	// --------------------------------------Comienzo ABM Cliente------------------------------------------------
+		
+		public boolean agregarClienteFisico(String zonaCliente, DatosPersonales datosPersonales) throws Exception {
+			if(traerClienteFisico(datosPersonales)!= null) throw new Exception("El cliente ya existe");
+			int id = 1;
+			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
+			Cliente cliente = new ClienteFisico(id, zonaCliente, datosPersonales);
+			clientes.add(cliente);
+			return true;
+		}
+		
+		public boolean agregarClienteJuridico(String zonaCliente, String razonSocial, int nroCUIT) throws Exception {
+			if(traerClienteJuridico(nroCUIT)!= null) throw new Exception("El cliente ya existe");
+			int id = 1;
+			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
+			Cliente cliente = new ClienteJuridico(id, zonaCliente, razonSocial, nroCUIT);
+			clientes.add(cliente);
+			return true;
+		}
+		
+		public ClienteFisico traerClienteFisico(DatosPersonales datosPersonales) {
+			
+			return null;
+		}
+		
+		public ClienteJuridico traerClienteJuridico(int nroCUIT) {
+			Cliente cliente = null;
+			int cont = 0;
+			while(clientes.size()>cont && cliente==null) {
+				
+			}
+			return null;
+		}
 	 
+	 //----------------------------------------Fin ABM Cliente---------------------------------------------------------
 }
