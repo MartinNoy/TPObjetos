@@ -7,9 +7,9 @@ public class TarifaAlta extends Tarifa {
 
 	private String tensionContratada;
 	private int limite;
-	private List<DetalleAlta> lstDetalle;
+	private List<DetalleBaja> lstDetalle;
 	
-	public TarifaAlta(String servicio, String tensionContratada, int limite, List<DetalleAlta> lstDetalle) {
+	public TarifaAlta(String servicio, String tensionContratada, int limite, List<DetalleBaja> lstDetalle) {
 		super(servicio);
 		this.tensionContratada = tensionContratada;
 		this.limite = limite;
@@ -32,11 +32,11 @@ public class TarifaAlta extends Tarifa {
 		this.limite = limite;
 	}
 
-	public List<DetalleAlta> getLstDetalle() {
+	public List<DetalleBaja> getLstDetalle() {
 		return lstDetalle;
 	}
 
-	public void setLstDetalle(List<DetalleAlta> lstDetalle) {
+	public void setLstDetalle(List<DetalleBaja> lstDetalle) {
 		this.lstDetalle = lstDetalle;
 	}
 
@@ -45,5 +45,12 @@ public class TarifaAlta extends Tarifa {
 		return "TarifaAlta [tensionContratada=" + tensionContratada + ", limite=" + limite + ", lstDetalle="
 				+ lstDetalle + "]";
 	}
+	
+	
+	public boolean agregarDetalleAlta(String detalleConcepto, String unidad, boolean supererLimite, double valor) {
+		DetalleAlta detalle = new DetalleAlta(detalleConcepto, unidad, supererLimite, valor);
+		return true;
+	}
+	
 
 }
