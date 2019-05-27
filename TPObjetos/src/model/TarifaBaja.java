@@ -5,18 +5,20 @@ import java.util.ArrayList;
 
 public class TarifaBaja extends Tarifa {
 
-	private List<DetalleAlta> lstDetalle;
+	private List<DetalleBaja> lstDetalle;
 
-	public TarifaBaja(String servicio, List<DetalleAlta> lstDetalle) {
+
+	public TarifaBaja(String servicio, List<DetalleBaja> lstDetalle) {
+
 		super(servicio);
-		this.lstDetalle = lstDetalle;
+		this.lstDetalle = new ArrayList<DetalleBaja>();
 	}
 
-	public List<DetalleAlta> getLstDetalle() {
+	public List<DetalleBaja> getLstDetalle() {
 		return lstDetalle;
 	}
 
-	public void setLstDetalle(List<DetalleAlta> lstDetalle) {
+	public void setLstDetalle(List<DetalleBaja> lstDetalle) {
 		this.lstDetalle = lstDetalle;
 	}
 

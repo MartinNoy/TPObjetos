@@ -7,13 +7,13 @@ public class TarifaAlta extends Tarifa {
 
 	private String tensionContratada;
 	private int limite;
-	private List<DetalleBaja> lstDetalle;
+	private List<DetalleAlta> lstDetalle;
 	
-	public TarifaAlta(String servicio, String tensionContratada, int limite, List<DetalleBaja> lstDetalle) {
+	public TarifaAlta(String servicio, String tensionContratada, int limite) {
 		super(servicio);
 		this.tensionContratada = tensionContratada;
 		this.limite = limite;
-		this.lstDetalle = lstDetalle;
+		this.lstDetalle = new ArrayList<DetalleAlta>();
 	}
 
 	public String getTensionContratada() {
@@ -32,11 +32,11 @@ public class TarifaAlta extends Tarifa {
 		this.limite = limite;
 	}
 
-	public List<DetalleBaja> getLstDetalle() {
+	public List<DetalleAlta> getLstDetalle() {
 		return lstDetalle;
 	}
 
-	public void setLstDetalle(List<DetalleBaja> lstDetalle) {
+	public void setLstDetalle(List<DetalleAlta> lstDetalle) {
 		this.lstDetalle = lstDetalle;
 	}
 
