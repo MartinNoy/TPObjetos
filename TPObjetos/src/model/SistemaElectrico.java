@@ -271,7 +271,7 @@ public class SistemaElectrico {
 		}
 	 
 	 
-	 public boolean modificarAlta(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumoHsPico, int consumoHsValle, int consumoHsResto) 
+	 public boolean modificarLectura(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumoHsPico, int consumoHsValle, int consumoHsResto) 
 				throws Exception {
 			Alta existeLectura=traerAlta(idLectura);
 
@@ -298,6 +298,18 @@ public class SistemaElectrico {
 			existeLectura.setConsumo(consumo);
 			return true;
 		}
+	 
+	 public Lectura traerLectura(LocalDate fecha, Medidor medidor) {
+		 Lectura Lectura = null;
+		 int cont=0;
+		 while(lecturas.size()>cont && Lectura == null) {
+			 if(lecturas.get(cont).getFecha().isEqual(fecha)&&lecturas.get(cont).getMedidor().equals(medidor)) {
+				 Lectura = lecturas.get(cont);
+			 }
+			 cont++;
+		 }
+		 return Lectura;
+	 }
 	 
 	 public Lectura traerLectura(int idLectura){
 			int i=0;
@@ -403,6 +415,20 @@ public class SistemaElectrico {
 
 			return cliente;
 		}
+		public Cliente traerCliente(int nroCUIT) {
+			Cliente cliente = null;
+			int cont = 0;
+			while(clientes.size()>cont && cliente==null) {
+				if(clientes.get(cont) instanceof ClienteJuridico) {
+					ClienteJuridico clienteJuridico = (ClienteJuridico)clientes.get(cont);
+					if(clienteJuridico.getNroCUIT()==nroCUIT) {
+						cliente = clienteJuridico;
+					}
+				}
+			}
+			
+			return cliente;
+		}
 		
 		public boolean modificarCliente(DatosPersonales datosPersonales) throws Exception{
 			ClienteFisico clienteModificar = (ClienteFisico)traerCliente(datosPersonales);
@@ -418,20 +444,6 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public Cliente traerCliente(int nroCUIT) {
-			Cliente cliente = null;
-			int cont = 0;
-			while(clientes.size()>cont && cliente==null) {
-				if(clientes.get(cont) instanceof ClienteJuridico) {
-					ClienteJuridico clienteJuridico = (ClienteJuridico)clientes.get(cont);
-					if(clienteJuridico.getNroCUIT()==nroCUIT) {
-						cliente = clienteJuridico;
-					}
-				}
-			}
-
-			return cliente;
-		}
 	 
 	 //----------------------------------------Fin ABM Cliente---------------------------------------------------------
 }

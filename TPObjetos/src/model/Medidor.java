@@ -32,7 +32,7 @@ public class Medidor {
 		this.domicilioMedidor = domicilioMedidor;
 	}
 
-	public boolean isEsBaja() {
+	public boolean getEsBaja() {
 		return esBaja;
 	}
 
