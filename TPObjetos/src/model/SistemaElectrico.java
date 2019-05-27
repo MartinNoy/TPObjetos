@@ -376,7 +376,7 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public boolean agregarCliente(String zonaCliente, String razonSocial, int nroCUIT) throws Exception {
+		public boolean agregarCliente(String zonaCliente, String razonSocial, long nroCUIT) throws Exception {
 			if(traerCliente(nroCUIT)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
@@ -385,7 +385,7 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public boolean eliminarCliente(int nroCUIT) throws Exception {
+		public boolean eliminarCliente(long nroCUIT) throws Exception {
 			Cliente cliente = traerCliente(nroCUIT);
 			if (cliente==null) throw new Exception ("cliente no existe");
 			clientes.remove(cliente);
@@ -415,7 +415,7 @@ public class SistemaElectrico {
 
 			return cliente;
 		}
-		public Cliente traerCliente(int nroCUIT) {
+		public Cliente traerCliente(long nroCUIT) {
 			Cliente cliente = null;
 			int cont = 0;
 			while(clientes.size()>cont && cliente==null) {
@@ -436,7 +436,7 @@ public class SistemaElectrico {
 			clienteModificar.setDatosPersonales(datosPersonales);
 			return true;
 		}
-		public boolean modificarCliente(int nroCUIT, String razonSocial) throws Exception{
+		public boolean modificarCliente(long nroCUIT, String razonSocial) throws Exception{
 			ClienteJuridico clienteModificar = (ClienteJuridico)traerCliente(nroCUIT);
 			if(clienteModificar == null)throw new Exception ("cliente no existe");
 			clienteModificar.setNroCUIT(nroCUIT);
