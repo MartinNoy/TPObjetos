@@ -123,8 +123,9 @@ public class SistemaElectrico {
 
 	// ----------------------------------------Comienzo ABM Tarifa-----------------------------------------------
 
-	public boolean agregarTarifa(Tarifa tarifa) throws Exception {
+	public boolean agregarTarifa(String servicio, String tensionContratada, int limite) throws Exception {
 		boolean agregado = false;
+		Tarifa tarifa = new TarifaAlta(servicio, tensionContratada,limite);
 		if (tarifas.isEmpty()) {
 			agregado = tarifas.add(tarifa);
 		} else {
@@ -137,8 +138,9 @@ public class SistemaElectrico {
 		return agregado;
 	}
 
-	public boolean agregarTarifa(Tarifa tarifa) throws Exception {
+	public boolean agregarTarifa(String servicio) throws Exception {
 		boolean agregado = false;
+		Tarifa tarifa = new TarifaBaja(servicio);
 		if (tarifas.isEmpty()) {
 			agregado = tarifas.add(tarifa);
 		} else {
@@ -151,11 +153,12 @@ public class SistemaElectrico {
 		return agregado;
 	}
 	
-	public boolean modificarTarifa(Tarifa tarifaVieja, Tarifa tarifaNueva) throws Exception {
+	public boolean modificarTarifaAlta(String tarifaVieja, String tarifaNueva, String tensionContratada, int limite) throws Exception {
 		boolean modificado = false;
-		Tarifa tarifaAux = traerTarifa(tarifaNueva);
-		if (tarifaAux != null) {
-			tarifaVieja = tarifaNueva;
+		Tarifa tarifaAux = traerTarifa(new Tarifa(tarifaVieja));
+		Tarifa tarifaNuevaAux = traerTarifa(new TarifaAlta(tarifaNueva,tensionContratada,limite));
+		if (tarifaAux != null && tarifaNuevaAux != null) {
+			tarifaNuevaAux = tarifaAux;
 			modificado = true;
 		} else {
 			throw new Exception("Error: La Tarifa a modificar no esta en la Lista de Tarifas");
@@ -163,9 +166,9 @@ public class SistemaElectrico {
 		return modificado;
 	}
 
-	public boolean eliminarTarifa(Tarifa tarifa) throws Exception {
+	public boolean eliminarTarifa(String servicio) throws Exception {
 		boolean eliminado = false;
-		Tarifa tarifaEliminar = traerTarifa(tarifa);
+		Tarifa tarifaEliminar = traerTarifa(new Tarifa (servicio));
 		if (tarifaEliminar != null) {
 			eliminado = tarifas.remove(tarifaEliminar);
 		} else {

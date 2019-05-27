@@ -7,9 +7,11 @@ public class TarifaBaja extends Tarifa {
 
 	private List<DetalleBaja> lstDetalle;
 
+
 	public TarifaBaja(String servicio, List<DetalleBaja> lstDetalle) {
+
 		super(servicio);
-		this.lstDetalle = lstDetalle;
+		this.lstDetalle = new ArrayList<DetalleBaja>();
 	}
 
 	public List<DetalleBaja> getLstDetalle() {

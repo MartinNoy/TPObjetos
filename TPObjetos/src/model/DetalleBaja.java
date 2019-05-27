@@ -4,14 +4,16 @@ public class DetalleBaja {
 
 	private String detalleConcepto;
 	private String unidad;
-	private boolean superarLimite;
+	private int desde;
+	private int hasta;
 	private double valor;
 
-	public DetalleBaja(String detalleConcepto, String unidad, boolean superarLimite, double valor) {
+	public DetalleBaja(String detalleConcepto, String unidad, int desde, int hasta, double valor) {
 		super();
 		this.detalleConcepto = detalleConcepto;
 		this.unidad = unidad;
-		this.superarLimite = superarLimite;
+		this.desde = desde;
+		this.hasta = hasta;
 		this.valor = valor;
 	}
 
@@ -31,12 +33,20 @@ public class DetalleBaja {
 		this.unidad = unidad;
 	}
 
-	public boolean isSuperarLimite() {
-		return superarLimite;
+	public int getDesde() {
+		return desde;
 	}
 
-	public void setSuperarLimite(boolean superarLimite) {
-		this.superarLimite = superarLimite;
+	public void setDesde(int desde) {
+		this.desde = desde;
+	}
+
+	public int getHasta() {
+		return hasta;
+	}
+
+	public void setHasta(int hasta) {
+		this.hasta = hasta;
 	}
 
 	public double getValor() {
@@ -49,8 +59,8 @@ public class DetalleBaja {
 
 	@Override
 	public String toString() {
-		return "DetalleBaja [detalleConcepto=" + detalleConcepto + ", unidad=" + unidad + ", superarLimite="
-				+ superarLimite + ", valor=" + valor + "]";
+		return "DetalleAlta [detalleConcepto=" + detalleConcepto + ", unidad=" + unidad + ", desde=" + desde
+				+ ", hasta=" + hasta + ", valor=" + valor + "]";
 	}
 
 }
