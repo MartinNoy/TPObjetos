@@ -19,7 +19,7 @@ public class TestGeneral {
 		Tarifa tarifa1 = new Tarifa();
 		TarifaAlta tarifaAlta1 = new TarifaAlta();
 		TarifaBaja tarifaBaja1 = new TarifaBaja();
-		Zona zona1 = new Zona();
+		Zona zona1 = new Zona(); //Zona
 		
 	}
 
