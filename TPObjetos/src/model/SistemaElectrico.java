@@ -137,6 +137,20 @@ public class SistemaElectrico {
 		return agregado;
 	}
 
+	public boolean agregarTarifa(Tarifa tarifa) throws Exception {
+		boolean agregado = false;
+		if (tarifas.isEmpty()) {
+			agregado = tarifas.add(tarifa);
+		} else {
+			if (traerTarifa(tarifa) == null) {
+				agregado = tarifas.add(tarifa);
+			} else {
+				throw new Exception("Error: La Tarifa ya ha sido agregada a la lista de Tarifas anteriormente");
+			}
+		}
+		return agregado;
+	}
+	
 	public boolean modificarTarifa(Tarifa tarifaVieja, Tarifa tarifaNueva) throws Exception {
 		boolean modificado = false;
 		Tarifa tarifaAux = traerTarifa(tarifaNueva);
