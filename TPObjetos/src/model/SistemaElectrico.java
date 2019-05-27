@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaElectrico {
-	List<Cliente> clientes = new ArrayList<Cliente>();
+	List<Cliente> clientes = new ArrayList<Cliente>(); //Julian: ABM cliente y los traer
 	List<Zona> zonas = new ArrayList<Zona>(); // Gabriel: ABM Zona y los traer
 	List<Tarifa> tarifas = new ArrayList<Tarifa>(); // Franco: ABM Tarifa y sus traer
 	List<Medidor> medidores = new ArrayList<Medidor>(); // Martin Crea ABM de Medidor y todos los traer
@@ -434,5 +434,4 @@ public class SistemaElectrico {
 		}
 	 
 	 //----------------------------------------Fin ABM Cliente---------------------------------------------------------
-		//Ignorar: Probando Git (Julian)
 }
