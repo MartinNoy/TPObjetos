@@ -434,4 +434,5 @@ public class SistemaElectrico {
 		}
 	 
 	 //----------------------------------------Fin ABM Cliente---------------------------------------------------------
+		//Ignorar: Probando Git (Julian)
 }
