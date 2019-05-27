@@ -68,7 +68,7 @@ public class SistemaElectrico {
 	// ----------------------------------------Comienzo ABM Medidor---------------------------------------------------
 
 	
-
+	
 	public boolean agregarMedidor(String domicilio, boolean esBaja, Cliente cliente, Tarifa tarifa) throws Exception {
 		if (traerMedidor(cliente) != null)
 			throw new Exception("El cliente ya existe");
