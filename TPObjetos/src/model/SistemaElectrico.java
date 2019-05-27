@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaElectrico {
-	List<Cliente> clientes = new ArrayList<Cliente>(); //Julian: ABM cliente y los traer
+	List<Cliente> clientes = new ArrayList<Cliente>();
 	List<Zona> zonas = new ArrayList<Zona>(); // Gabriel: ABM Zona y los traer
 	List<Tarifa> tarifas = new ArrayList<Tarifa>(); // Franco: ABM Tarifa y sus traer
 	List<Medidor> medidores = new ArrayList<Medidor>(); // Martin Crea ABM de Medidor y todos los traer
@@ -285,7 +285,7 @@ public class SistemaElectrico {
 		}
 	 
 	 
-	 public boolean modificarAlta(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumoHsPico, int consumoHsValle, int consumoHsResto) 
+	 public boolean modificarLectura(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumoHsPico, int consumoHsValle, int consumoHsResto) 
 				throws Exception {
 			Alta existeLectura=traerAlta(idLectura);
 
@@ -312,6 +312,18 @@ public class SistemaElectrico {
 			existeLectura.setConsumo(consumo);
 			return true;
 		}
+	 
+	 public Lectura traerLectura(LocalDate fecha, Medidor medidor) {
+		 Lectura Lectura = null;
+		 int cont=0;
+		 while(lecturas.size()>cont && Lectura == null) {
+			 if(lecturas.get(cont).getFecha().isEqual(fecha)&&lecturas.get(cont).getMedidor().equals(medidor)) {
+				 Lectura = lecturas.get(cont);
+			 }
+			 cont++;
+		 }
+		 return Lectura;
+	 }
 	 
 	 public Lectura traerLectura(int idLectura){
 			int i=0;
@@ -378,7 +390,7 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public boolean agregarCliente(String zonaCliente, String razonSocial, int nroCUIT) throws Exception {
+		public boolean agregarCliente(String zonaCliente, String razonSocial, long nroCUIT) throws Exception {
 			if(traerCliente(nroCUIT)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
@@ -387,7 +399,7 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public boolean eliminarCliente(int nroCUIT) throws Exception {
+		public boolean eliminarCliente(long nroCUIT) throws Exception {
 			Cliente cliente = traerCliente(nroCUIT);
 			if (cliente==null) throw new Exception ("cliente no existe");
 			clientes.remove(cliente);
@@ -417,22 +429,7 @@ public class SistemaElectrico {
 
 			return cliente;
 		}
-		
-		public boolean modificarCliente(DatosPersonales datosPersonales) throws Exception{
-			ClienteFisico clienteModificar = (ClienteFisico)traerCliente(datosPersonales);
-			if(clienteModificar == null)throw new Exception ("cliente no existe");
-			clienteModificar.setDatosPersonales(datosPersonales);
-			return true;
-		}
-		public boolean modificarCliente(int nroCUIT, String razonSocial) throws Exception{
-			ClienteJuridico clienteModificar = (ClienteJuridico)traerCliente(nroCUIT);
-			if(clienteModificar == null)throw new Exception ("cliente no existe");
-			clienteModificar.setNroCUIT(nroCUIT);
-			clienteModificar.setRazonSocial(razonSocial);
-			return true;
-		}
-		
-		public Cliente traerCliente(int nroCUIT) {
+		public Cliente traerCliente(long nroCUIT) {
 			Cliente cliente = null;
 			int cont = 0;
 			while(clientes.size()>cont && cliente==null) {
@@ -443,9 +440,24 @@ public class SistemaElectrico {
 					}
 				}
 			}
-
+			
 			return cliente;
 		}
+		
+		public boolean modificarCliente(DatosPersonales datosPersonales) throws Exception{
+			ClienteFisico clienteModificar = (ClienteFisico)traerCliente(datosPersonales);
+			if(clienteModificar == null)throw new Exception ("cliente no existe");
+			clienteModificar.setDatosPersonales(datosPersonales);
+			return true;
+		}
+		public boolean modificarCliente(long nroCUIT, String razonSocial) throws Exception{
+			ClienteJuridico clienteModificar = (ClienteJuridico)traerCliente(nroCUIT);
+			if(clienteModificar == null)throw new Exception ("cliente no existe");
+			clienteModificar.setNroCUIT(nroCUIT);
+			clienteModificar.setRazonSocial(razonSocial);
+			return true;
+		}
+		
 	 
 	 //----------------------------------------Fin ABM Cliente---------------------------------------------------------
 }
