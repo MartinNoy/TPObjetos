@@ -384,13 +384,13 @@ public class SistemaElectrico {
 	 
 	// --------------------------------------Comienzo ABM Cliente------------------------------------------------
 		
-		public boolean agregarCliente(Zona zonaCliente, DatosPersonales datosPersonales) throws Exception {
-			if(traerCliente(datosPersonales)!= null) throw new Exception("El cliente ya existe");
+		public void agregarCliente(Zona zonaCliente, String nombre , String apellido, int dni) throws Exception {
+			DatosPersonales datosPersonales = new DatosPersonales(nombre,apellido,dni);
+			if(traerCliente(dni)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
 			Cliente cliente = new ClienteFisico(id, zonaCliente, datosPersonales);
 			clientes.add(cliente);
-			return true;
 		}
 		
 		public boolean agregarCliente(Zona zonaCliente, String razonSocial, long nroCUIT) throws Exception {
@@ -409,8 +409,8 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public boolean eliminarCliente(DatosPersonales datosPersonales) throws Exception {
-			Cliente cliente = traerCliente(datosPersonales);
+		public boolean eliminarCliente(int dni) throws Exception {
+			Cliente cliente = traerCliente(dni);
 			if (cliente==null) throw new Exception ("cliente no existe");
 			clientes.remove(cliente);
 			return true;
@@ -418,13 +418,13 @@ public class SistemaElectrico {
 		
 		
 		
-		public Cliente traerCliente(DatosPersonales datosPersonales) {
+		public Cliente traerCliente(int dni) {
 			Cliente cliente = null;
 			int cont = 0;
 			while(clientes.size()>cont && cliente==null) {
 				if(clientes.get(cont) instanceof ClienteFisico) {
 					ClienteFisico clienteFisico = (ClienteFisico)clientes.get(cont);
-					if(clienteFisico.getDatosPersonales()==datosPersonales) {
+					if(clienteFisico.getDatosPersonales().getDni()==dni) {
 						cliente = clienteFisico;
 					}
 				}
@@ -447,10 +447,12 @@ public class SistemaElectrico {
 			return cliente;
 		}
 		
-		public boolean modificarCliente(DatosPersonales datosPersonales) throws Exception{
-			ClienteFisico clienteModificar = (ClienteFisico)traerCliente(datosPersonales);
+		public boolean modificarCliente(int dni, String nombreModificar, String apellidoModificar, int dniModificar ) throws Exception{
+			ClienteFisico clienteModificar = (ClienteFisico)traerCliente(dni);
 			if(clienteModificar == null)throw new Exception ("cliente no existe");
-			clienteModificar.setDatosPersonales(datosPersonales);
+			clienteModificar.getDatosPersonales().setApellido(apellidoModificar);
+			clienteModificar.getDatosPersonales().setNombre(nombreModificar);
+			clienteModificar.getDatosPersonales().setDni(dniModificar);
 			return true;
 		}
 		public boolean modificarCliente(long nroCUIT, String razonSocial) throws Exception{

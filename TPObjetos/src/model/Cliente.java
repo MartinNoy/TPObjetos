@@ -25,4 +25,12 @@ public class Cliente {
 	public void setZonaCliente(Zona zonaCliente2) {
 		this.zonaCliente = zonaCliente2;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Numero de cliente: "+ nroCliente + "\n" + " Zona: " + zonaCliente;
+	}
+	
+	
 }

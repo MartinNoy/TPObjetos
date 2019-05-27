@@ -5,6 +5,7 @@ import java.util.*;
 
 public class TestGeneral {
 	public static void main(String[] args) {
+		SistemaElectrico se = new SistemaElectrico();
 		Alta alta1 = new Alta();
 		Baja baja1= new Baja();
 		Cliente cliente1 = new ClienteFisico();

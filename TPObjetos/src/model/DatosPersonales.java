@@ -34,4 +34,17 @@ public class DatosPersonales {
 	public void setDni(long dni) {
 		this.dni = dni;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Nombre: " + nombre + " Apellido: " + apellido + " DNI: " + dni;
+	}
+
+	public boolean equals(DatosPersonales datos) {
+		// TODO Auto-generated method stub
+		return this.dni==datos.dni;
+	}
+	
+	
 }
