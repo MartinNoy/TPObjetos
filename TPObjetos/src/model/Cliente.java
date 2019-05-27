@@ -2,10 +2,10 @@ package model;
 
 public class Cliente {
 	private int nroCliente;
-	private String zonaCliente;
+	private Zona zonaCliente;
 	
 	
-	public Cliente(int nroCliente, String zonaCliente) {
+	public Cliente(int nroCliente, Zona zonaCliente) {
 		this.nroCliente = nroCliente;
 		this.setZonaCliente(zonaCliente);
 	}
@@ -18,11 +18,11 @@ public class Cliente {
 		this.nroCliente = nroCliente;
 	}
 
-	public String getZonaCliente() {
+	public Zona getZonaCliente() {
 		return zonaCliente;
 	}
 
-	public void setZonaCliente(String zonaCliente) {
-		this.zonaCliente = zonaCliente;
+	public void setZonaCliente(Zona zonaCliente2) {
+		this.zonaCliente = zonaCliente2;
 	}
 }

@@ -3,7 +3,7 @@ package model;
 public class ClienteFisico extends Cliente{
 	private DatosPersonales datosPersonales;
 	
-	public ClienteFisico(int nroCliente, String zonaCliente, DatosPersonales datosPersonales) {
+	public ClienteFisico(int nroCliente, Zona zonaCliente, DatosPersonales datosPersonales) {
 		super(nroCliente, zonaCliente);
 		this.setDatosPersonales(datosPersonales);
 	}

@@ -381,7 +381,7 @@ public class SistemaElectrico {
 	 
 	// --------------------------------------Comienzo ABM Cliente------------------------------------------------
 		
-		public boolean agregarCliente(String zonaCliente, DatosPersonales datosPersonales) throws Exception {
+		public boolean agregarCliente(Zona zonaCliente, DatosPersonales datosPersonales) throws Exception {
 			if(traerCliente(datosPersonales)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
@@ -390,7 +390,7 @@ public class SistemaElectrico {
 			return true;
 		}
 		
-		public boolean agregarCliente(String zonaCliente, String razonSocial, long nroCUIT) throws Exception {
+		public boolean agregarCliente(Zona zonaCliente, String razonSocial, long nroCUIT) throws Exception {
 			if(traerCliente(nroCUIT)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
