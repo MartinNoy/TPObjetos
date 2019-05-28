@@ -5,7 +5,7 @@ import java.util.*;
 
 public class TestGeneral {
 	public static void main(String[] args) {
-		SistemaElectrico se = new SistemaElectrico();
+	/*	SistemaElectrico se = new SistemaElectrico();
 		Alta alta1 = new Alta();
 		Baja baja1= new Baja();
 		Cliente cliente1 = new ClienteFisico();
@@ -21,7 +21,7 @@ public class TestGeneral {
 		TarifaAlta tarifaAlta1 = new TarifaAlta();
 		TarifaBaja tarifaBaja1 = new TarifaBaja();
 		Zona zona1 = new Zona(); //Zona
-		
+		*/
 	}
 
 }

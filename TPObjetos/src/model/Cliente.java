@@ -29,7 +29,7 @@ public class Cliente {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "Numero de cliente: "+ nroCliente + "\n" + " Zona: " + zonaCliente;
+		return "Numero de cliente: "+ nroCliente + " Zona: " + zonaCliente;
 	}
 	
 	

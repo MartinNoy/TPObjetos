@@ -11,7 +11,7 @@ public class SistemaElectrico {
 	List<Tarifa> tarifas = new ArrayList<Tarifa>(); // Franco: ABM Tarifa y sus traer
 	List<Medidor> medidores = new ArrayList<Medidor>(); // Martin Crea ABM de Medidor y todos los traer
 	List<Lectura> lecturas = new ArrayList<Lectura>(); // Gabriel: ABM Lectura y sus traer
-
+	List<Inspector> inspectores = new ArrayList<Inspector>();
 	public SistemaElectrico(List<Zona> zonas, List<Tarifa> tarifas, List<Cliente> clientes, List<Medidor> medidores, List<Lectura> lecturas ) {
 		this.clientes = clientes;
 		this.zonas = zonas;
@@ -64,47 +64,65 @@ public class SistemaElectrico {
 		this.lecturas = lecturas;
 	}
 	
+	
+	
 
 	// ----------------------------------------Comienzo ABM Medidor---------------------------------------------------
 
 	
 	
-	public boolean agregarMedidor(String domicilio, boolean esBaja, Cliente cliente, Tarifa tarifa) throws Exception {
-		if (traerMedidor(cliente) != null)
+
+
+	public boolean agregarMedidor(String domicilio, boolean esBaja, int dni, Tarifa tarifa) throws Exception {
+		if (traerMedidor(dni) != null)
 			throw new Exception("El cliente ya existe");
 		int id = 1;
 		if (!medidores.isEmpty())
 			id = medidores.get(medidores.size() - 1).getNroSerie() + 1;
-		Medidor medidor = new Medidor(id, domicilio, esBaja, cliente, tarifa);
+		Medidor medidor = new Medidor(id, domicilio, esBaja, traerCliente(dni), tarifa);
 		medidores.add(medidor);
 
 		return true;
 	}
 
-	public boolean eliminarMedidor(Cliente cliente) throws Exception {
-		if (traerMedidor(cliente) == null)
+	public boolean eliminarMedidor(int dni) throws Exception {
+		if (traerMedidor(dni) == null)
 			throw new Exception("El cliente no existe");
-		Medidor medidor = traerMedidor(cliente);
+		Medidor medidor = traerMedidor(dni);
 		medidores.remove(medidor);
 		return true;
 	}
 	
-	public boolean modificarmedidor(int nroSerie, String domicilioMedidor, boolean esBaja, Cliente cliente, Tarifa tarifa) throws Exception{
-		Medidor medidorModificar = traerMedidor(cliente);
+	public boolean modificarmedidor(int nroSerie, String domicilioMedidor, boolean esBaja, int dniCliente ) throws Exception{
+		Medidor medidorModificar = traerMedidor(nroSerie);
 		if (medidorModificar==null)throw new Exception("El medidor no existe");
 		medidorModificar.setNroSerie(nroSerie);
 		medidorModificar.setDomicilioMedidor(domicilioMedidor);
 		medidorModificar.setEsBaja(esBaja);
-		medidorModificar.setCliente(cliente);
-		medidorModificar.setTarifa(tarifa);
+		medidorModificar.setCliente(traerCliente(dniCliente));
+		//medidorModificar.setTarifa(tarifa);
+		
+		return true;
+	}
+	
+	public boolean modificarmedidor(int nroSerie, String domicilioMedidor, boolean esBaja, int dniCliente, String tensionContratada  ) throws Exception{
+		Medidor medidorModificar = traerMedidor(nroSerie);
+		if (medidorModificar==null)throw new Exception("El medidor no existe");
+		medidorModificar.setNroSerie(nroSerie);
+		medidorModificar.setDomicilioMedidor(domicilioMedidor);
+		medidorModificar.setEsBaja(esBaja);
+		medidorModificar.setCliente(traerCliente(dniCliente));
+		medidorModificar.setTarifa(traerTarifaAlta(tensionContratada));
+		
+		
 		return true;
 	}
 
-	public Medidor traerMedidor(Cliente cliente) {
+	public Medidor traerMedidor(int nroSerie) {
 		Medidor medidor = null;
 		int cont = 0;
 		while (medidores.size() > cont && medidor == null) {
-			if (medidores.get(cont).getCliente().equals(cliente)) {
+			if (medidores.get(cont).getNroSerie()==nroSerie) {
 				medidor = medidores.get(cont);
 
 			}
@@ -194,11 +212,14 @@ public class SistemaElectrico {
 	
 	// ----------------------------------------Comienzo ABM Zona-------------------------------------------------
 	
-	public boolean agregarZona(Zona zona)throws Exception {
-		Zona existeZona=traerZona(zona.getIdZona());
+	public boolean agregarZona(String nombre)throws Exception {
+		int id = 1;
+		Zona existeZona=traerZona(nombre);
 		if(existeZona!=null) {
-			throw new Exception ("Zona "+zona.getIdZona()+" ya existe");
-		}	
+			throw new Exception ("Zona "+nombre+" ya existe");
+		}
+		if (!zonas.isEmpty())id=zonas.get(zonas.size()-1).getIdZona()+1;
+		Zona zona = new Zona(id, nombre);
 		return zonas.add(zona);
 	}
 	
@@ -250,7 +271,10 @@ public class SistemaElectrico {
 	
 	// ----------------------------------------Comienzo ABM Lectura-------------------------------------------------
 	
-	public boolean agregarLectura(Lectura lectura)throws Exception {
+	public boolean agregarLectura(LocalDate fecha, LocalTime hora,int dni, int nroSerie )throws Exception {
+		int id = 1;
+		if (!lecturas.isEmpty())id=lecturas.get(lecturas.size()-1).getIdLectura()+1;
+		Lectura lectura = new Lectura(id,fecha,hora,traerInspector(dni),traerMedidor(nroSerie));
 		Lectura existeLectura=traerLectura(lectura.getIdLectura());
 		if(existeLectura!=null) {
 			throw new Exception ("No puedo agregar la lectura"+lectura.getIdLectura()+" ya existe");
@@ -384,8 +408,14 @@ public class SistemaElectrico {
 	 
 	// --------------------------------------Comienzo ABM Cliente------------------------------------------------
 		
-		public void agregarCliente(Zona zonaCliente, String nombre , String apellido, int dni) throws Exception {
+		public void agregarCliente(String nombreZona, String nombre , String apellido, int dni) throws Exception {
 			DatosPersonales datosPersonales = new DatosPersonales(nombre,apellido,dni);
+			
+			if(traerZona(nombreZona) == null) {
+				agregarZona(nombreZona);
+				
+			}
+			Zona zonaCliente = traerZona(nombreZona);
 			if(traerCliente(dni)!= null) throw new Exception("El cliente ya existe");
 			int id = 1;
 			if(!clientes.isEmpty()) id = clientes.get(clientes.size()-1).getNroCliente()+1;
@@ -428,6 +458,7 @@ public class SistemaElectrico {
 						cliente = clienteFisico;
 					}
 				}
+				cont ++;
 			}
 
 			return cliente;
@@ -442,6 +473,7 @@ public class SistemaElectrico {
 						cliente = clienteJuridico;
 					}
 				}
+			cont ++;
 			}
 			
 			return cliente;
@@ -465,4 +497,36 @@ public class SistemaElectrico {
 		
 	 
 	 //----------------------------------------Fin ABM Cliente---------------------------------------------------------
+		
+	 // ----------------------------------------Comienzo ABM inspector-------------------------------------------------
+		
+		public boolean agregarIspector(String nombre, String apellido, int dni, String nombreZona) {
+			int id = 1;
+			DatosPersonales datos = new DatosPersonales(nombre,apellido,dni);
+			if(!inspectores.isEmpty())id=inspectores.get(inspectores.size()-1).getNroLegajo()+1;
+			Inspector inspector = new Inspector(id, datos , traerZona(nombreZona));
+			return inspectores.add(inspector);
+		}
+		
+		public Inspector traerInspector(int dni) {
+			Inspector inspector = null;
+			int cont = 0;
+			while(inspectores.size()>cont && inspector!= null) {
+				if(inspectores.get(cont).getDatosPersonales().getDni()==dni) {
+					inspector = inspectores.get(cont);
+				}
+				cont ++;
+			}
+			return inspector;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 }

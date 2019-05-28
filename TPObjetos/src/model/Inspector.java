@@ -6,32 +6,39 @@ import java.util.ArrayList;
 public class Inspector {
 	private int nroLegajo;
 	private DatosPersonales datosPersonales;
-	private List<Zona> zonas;
-	
-	public Inspector(int nroLegajo, DatosPersonales datosPersonales) {
+	private Zona zona;
+
+	public Inspector(int nroLegajo, DatosPersonales datosPersonales, Zona zona) {
 		super();
 		this.nroLegajo = nroLegajo;
 		this.datosPersonales = datosPersonales;
-		this.zonas = new ArrayList<Zona>();
+		this.zona = zona;
 	}
+
 	public int getNroLegajo() {
 		return nroLegajo;
 	}
+
 	public void setNroLegajo(int nroLegajo) {
 		this.nroLegajo = nroLegajo;
 	}
+
 	public DatosPersonales getDatosPersonales() {
 		return datosPersonales;
 	}
+
 	public void setDatosPersonales(DatosPersonales datosPersonales) {
 		this.datosPersonales = datosPersonales;
 	}
-	public List<Zona> getZonas() {
-		return zonas;
+
+	public Zona getZona() {
+		return zona;
 	}
-	public void setZonas(List<Zona> zonas) {
-		this.zonas = zonas;
+
+	public void setZona(Zona zona) {
+		this.zona = zona;
 	}
+
 	@Override
 	public String toString() {
 		return "Inspector [nroLegajo=" + nroLegajo + ", datosPersonales=" + datosPersonales + "]";

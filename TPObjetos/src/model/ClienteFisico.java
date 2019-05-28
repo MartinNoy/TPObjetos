@@ -20,7 +20,7 @@ public class ClienteFisico extends Cliente{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return super.toString() + "Datos personales: "+ datosPersonales.toString();
+		return super.toString() + "Datos personales: "+ datosPersonales.toString()+"\n";
 	}
 	
 	public boolean equals(ClienteFisico cliente) {
