@@ -6,3 +6,6 @@ Agregué atributos al clase Factura, creo que esos serán necesarios, aunque habri
 ----------------------------------------------------------
 Franco: Agregué ABM de tarifa.. pero creo que me falta hacer mas metodos para hacerlo mejor. El ABM basico de Tarifa esta.
 ----------------------------------------------------------
+Franco: Agrugué un metodo "public List<Lectura> traerLecturas(Medidor medidor)" para traer dos lecturas y clacular el 
+consumo sobre estas 2. Ademas arregle un detalle de "public float generarTotal(Medidor medidor)throws Exception"
+----------------------------------------------------------

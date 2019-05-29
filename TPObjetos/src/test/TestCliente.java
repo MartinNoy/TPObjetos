@@ -4,6 +4,8 @@ import model.*;
 public class TestCliente {
 	public static void main(String[] args) {
 		SistemaElectrico se = new SistemaElectrico();
+		float numereo = se.generarTotal(se.traerMedidor(12345678));
+		/*
 		try {
 
 		//-----Agregando clientes------
@@ -27,6 +29,6 @@ public class TestCliente {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+		 */
 	}
-
 }
