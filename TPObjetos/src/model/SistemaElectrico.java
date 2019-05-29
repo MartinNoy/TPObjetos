@@ -147,7 +147,7 @@ public class SistemaElectrico {
 		if (tarifas.isEmpty()) {
 			agregado = tarifas.add(tarifa);
 		} else {
-			if (traerTarifa(tarifa) == null) {
+			if (traerTarifa(servicio) == null) {
 				agregado = tarifas.add(tarifa);
 			} else {
 				throw new Exception("Error: La Tarifa ya ha sido agregada a la lista de Tarifas anteriormente");
@@ -162,7 +162,7 @@ public class SistemaElectrico {
 		if (tarifas.isEmpty()) {
 			agregado = tarifas.add(tarifa);
 		} else {
-			if (traerTarifa(tarifa) == null) {
+			if (traerTarifa(servicio) == null) {
 				agregado = tarifas.add(tarifa);
 			} else {
 				throw new Exception("Error: La Tarifa ya ha sido agregada a la lista de Tarifas anteriormente");
@@ -173,7 +173,7 @@ public class SistemaElectrico {
 	
 	public boolean modificarTarifaAlta(String tarifaVieja, String tarifaNueva, String tensionContratada, int limite) throws Exception {
 		boolean modificado = false;
-		Tarifa tarifaAux = traerTarifa(new Tarifa(tarifaVieja));
+		Tarifa tarifaAux = traerTarifa(tarifaVieja);
 		Tarifa tarifaNuevaAux = traerTarifa(new TarifaAlta(tarifaNueva,tensionContratada,limite));
 		if (tarifaAux != null && tarifaNuevaAux != null) {
 			tarifaNuevaAux = tarifaAux;
@@ -186,7 +186,7 @@ public class SistemaElectrico {
 
 	public boolean eliminarTarifa(String servicio) throws Exception {
 		boolean eliminado = false;
-		Tarifa tarifaEliminar = traerTarifa(new Tarifa (servicio));
+		Tarifa tarifaEliminar = traerTarifa(servicio);
 		if (tarifaEliminar != null) {
 			eliminado = tarifas.remove(tarifaEliminar);
 		} else {
@@ -196,12 +196,35 @@ public class SistemaElectrico {
 		return eliminado;
 	}
 
-	public Tarifa traerTarifa(Tarifa tarifa) {
+	public Tarifa traerTarifa(String servicioSoicitado) {
 		Tarifa tarifaEnviada = null;
 		int indice = 0;
 		while (indice < tarifas.size()) {
-			if (tarifas.get(indice).equals(tarifa)) {
+			if (tarifas.get(indice).equals(new Tarifa(servicioSoicitado))) {
 				tarifaEnviada = tarifas.get(indice);
+			}
+			indice++;
+		}
+		return tarifaEnviada;
+	}
+	
+	public TarifaBaja traerTarifaBaja(String servicioSoicitado) {
+		TarifaBaja tarifaEnviada = null;
+		int indice = 0;
+		while (indice < tarifas.size()) {
+			if (tarifas.get(indice).equals(new Tarifa(servicioSoicitado)) && tarifas.get(indice) instanceof TarifaBaja) {
+				tarifaEnviada = (TarifaBaja) tarifas.get(indice);
+			}
+			indice++;
+		}
+		return tarifaEnviada;
+	
+	}public TarifaAlta traerTarifaAlta(String servicioSoicitado) {
+		TarifaAlta tarifaEnviada = null;
+		int indice = 0;
+		while (indice < tarifas.size()) {
+			if (tarifas.get(indice).equals(new Tarifa(servicioSoicitado)) && tarifas.get(indice) instanceof TarifaAlta) {
+				tarifaEnviada = (TarifaAlta) tarifas.get(indice);
 			}
 			indice++;
 		}
