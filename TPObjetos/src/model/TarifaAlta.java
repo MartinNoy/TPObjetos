@@ -52,5 +52,30 @@ public class TarifaAlta extends Tarifa {
 		return true;
 	}
 	
+	public float calcularTotalTarifa(float consumoPico, float consumoResto, float consumoValle){
+		
+		float resultado=0;
+
+		
+			for (DetalleAlta d: lstDetalle){
+			
+					if(d.getDetalleConcepto().contentEquals("Cargo Fijo")){
+						resultado = (float) (resultado + d.getValor());
+					}
+					
+					if(d.getDetalleConcepto().contentEquals("Cargo Variable Pico")){
+						resultado = (float) (resultado + d.getValor()*consumoPico);
+					}
+					
+					if(d.getDetalleConcepto().contentEquals("Cargo Variable Resto")){
+						resultado = (float) (resultado + d.getValor()*consumoResto);
+					}
+					
+					if(d.getDetalleConcepto().contentEquals("Cargo Variable Valle")){
+						resultado = (float) (resultado + d.getValor()*consumoValle);
+					}
+			}
+		return resultado;
+	}
 
 }
