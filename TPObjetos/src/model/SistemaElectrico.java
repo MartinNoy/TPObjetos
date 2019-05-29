@@ -404,6 +404,22 @@ public class SistemaElectrico {
 			return lecturaEncontrada;
 		}
 	 
+
+		public List<Lectura> traerLecturas(Medidor medidor) {
+			List<Lectura> lecturasPorMedidor = new ArrayList<Lectura>();
+			int indice = 0;
+			while (lecturas.size() > indice) {
+				if (lecturas.get(indice).getMedidor().equals(medidor)) {
+					lecturasPorMedidor.add(lecturas.get(indice));
+				}
+				indice++;
+			}
+	
+			return lecturasPorMedidor;
+		}
+	 
+	 	
+	 
 	 // ----------------------------------------Fin ABM Lectura---------------------------------------------------------
 	 
 	// --------------------------------------Comienzo ABM Cliente------------------------------------------------
@@ -522,7 +538,7 @@ public class SistemaElectrico {
 
 	 //----------------------------------------Generar Total a pagar---------------------------------------------------
 		//Franco: todavia le falta.. paciencia.
-		public float generarTotal(Medidor medidor)throws Exception 
+		public float generarTotal(Medidor medidor)throws Exception { 
 			float total = 0;
 			int consumo = 0;
 			List<Lectura> lect = this.traerLecturas(medidor);
@@ -531,6 +547,8 @@ public class SistemaElectrico {
 					Alta lecturaAlta = (Alta) lect.get(lect.size() - 1);
 					Alta lecturaAltaAnterior = (Alta) lect.get(lect.size() - 2);
 					//consumo = lecturaAlta.getConsumoHsPico() -
+					
+					
 				} else {
 					Baja lecturaBaja = (Baja) lect.get(lect.size() - 1);
 					Baja lecturaBajaAnterior = (Baja) lect.get(lect.size() - 2);
@@ -542,7 +560,14 @@ public class SistemaElectrico {
 			}
 		return total;
 		}
+		
+		public float clacularConsumoAlta(Alta lecturaAlta, Alta lecturaAltaAnterior, TarifaAlta tarifa) {
 			
+		}
+		
+		public float clacularConsumoBaja(Baja lecturaBaja, Baja lecturaBajaAnterior, TarifaBaja tarifa){
+			
+		}
 			/*
 			public Factura generarFactura() {
 				Factura fac = new Factura();		
