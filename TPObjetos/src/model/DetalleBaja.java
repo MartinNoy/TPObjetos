@@ -59,8 +59,8 @@ public class DetalleBaja {
 
 	@Override
 	public String toString() {
-		return "DetalleAlta [detalleConcepto=" + detalleConcepto + ", unidad=" + unidad + ", desde=" + desde
-				+ ", hasta=" + hasta + ", valor=" + valor + "]";
+		return "DetalleBaja [detalleConcepto=" + detalleConcepto + ", unidad=" + unidad + ", desde=" + desde
+				+ ", hasta=" + hasta + ", valor=" + valor + "]\n";
 	}
 
 }

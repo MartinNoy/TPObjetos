@@ -4,8 +4,21 @@ import model.*;
 public class TestCliente {
 	public static void main(String[] args) {
 		SistemaElectrico se = new SistemaElectrico();
-		float numereo = se.generarTotal(se.traerMedidor(12345678));
-		/*
+		//-----Agregando Tarifas------
+		try {
+			se.agregarTarifa("Baja");
+			se.traerTarifaBaja("Baja").agregarDetalle();
+
+			System.out.println(se.traerTarifaBaja("Baja").getLstDetalle());
+		//float numereo = se.generarTotal(se.traerMedidor(12345678));
+		
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		//-----Fin Tarifas------
+		
+		
+		
 		try {
 
 		//-----Agregando clientes------
@@ -29,6 +42,6 @@ public class TestCliente {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		 */
+		
 	}
 }

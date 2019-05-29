@@ -27,12 +27,12 @@ public class TarifaBaja extends Tarifa {
 		return "TarifaBaja [lstDetalle=" + lstDetalle + "]";
 	}
 
-	public void agregarDetalle(String detalleConcepto, String unidad, int desde, int hasta, double valor) {
-		
+	public void agregarDetalle() {
+		/*
 		DetalleBaja d = new DetalleBaja(detalleConcepto, unidad, desde, hasta, valor);
 		lstDetalle.add(d);
+		*/
 		
-		/*
 		DetalleBaja d1 = new DetalleBaja("Cargo Fijo", "$/mes", 0, 150, 32.82);
 		DetalleBaja d2 = new DetalleBaja("Cargo Variable", "$/kWh", 0, 150, 2.653);
 
@@ -68,7 +68,7 @@ public class TarifaBaja extends Tarifa {
 		lstDetalle.add(d12);
 		lstDetalle.add(d13);
 		lstDetalle.add(d14);
-		*/
+
 	}
 	
 

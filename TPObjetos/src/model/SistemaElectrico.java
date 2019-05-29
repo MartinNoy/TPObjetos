@@ -174,7 +174,7 @@ public class SistemaElectrico {
 	public boolean modificarTarifaAlta(String tarifaVieja, String tarifaNueva, String tensionContratada, int limite) throws Exception {
 		boolean modificado = false;
 		Tarifa tarifaAux = traerTarifa(tarifaVieja);
-		Tarifa tarifaNuevaAux = traerTarifa(new TarifaAlta(tarifaNueva,tensionContratada,limite));
+		Tarifa tarifaNuevaAux = traerTarifa(new TarifaAlta(tarifaNueva,tensionContratada,limite).getServicio());
 		if (tarifaAux != null && tarifaNuevaAux != null) {
 			tarifaNuevaAux = tarifaAux;
 			modificado = true;
