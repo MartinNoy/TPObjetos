@@ -69,4 +69,25 @@ public class TarifaBaja extends Tarifa {
 		
 	}
 	
+
+	public float calcularTotalTarifa(float consumo){
+		
+		float resultado=0;
+
+		for (DetalleBaja d: lstDetalle){
+			
+			if((consumo>= d.getDesde())&&(consumo< d.getHasta())){
+				
+				if(d.getDetalleConcepto().contains("Cargo Fijo")){
+					resultado = (float) (resultado + d.getValor());
+				}
+				
+				if(d.getDetalleConcepto().contains("Cargo Variable")){
+					resultado = (float) (resultado + d.getValor()*consumo);
+				}
+			}
+		}
+		return resultado;
+	}
+	
 }
