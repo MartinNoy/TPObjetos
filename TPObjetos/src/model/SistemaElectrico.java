@@ -519,7 +519,37 @@ public class SistemaElectrico {
 			}
 			return inspector;
 		}
-		
+
+	 //----------------------------------------Generar Total a pagar---------------------------------------------------
+		//Franco: todavia le falta.. paciencia.
+		public float generarTotal(Medidor medidor)throws Exception 
+			float total = 0;
+			int consumo = 0;
+			List<Lectura> lect = this.traerLecturas(medidor);
+			if (lect.size() > 1) {
+				if (lect.get(lect.size() - 1) instanceof Alta) {
+					Alta lecturaAlta = (Alta) lect.get(lect.size() - 1);
+					Alta lecturaAltaAnterior = (Alta) lect.get(lect.size() - 2);
+					//consumo = lecturaAlta.getConsumoHsPico() -
+				} else {
+					Baja lecturaBaja = (Baja) lect.get(lect.size() - 1);
+					Baja lecturaBajaAnterior = (Baja) lect.get(lect.size() - 2);
+					consumo = lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo();
+					//medidor.getTarifa().
+				}
+			}else {
+				throw new Exception ("No hay suficientes Lecturas para generar el Total");
+			}
+		return total;
+		}
+			
+			/*
+			public Factura generarFactura() {
+				Factura fac = new Factura();		
+				return fac;
+			}
+			 */
+
 		
 		
 		
