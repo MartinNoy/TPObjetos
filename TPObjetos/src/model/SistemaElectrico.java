@@ -556,26 +556,29 @@ public class SistemaElectrico {
 
 	 //----------------------------------------Generar Total a pagar---------------------------------------------------
 		//Franco: todavia le falta.. paciencia.
-		public float clacularConsumoAlta(Alta lecturaAlta, Alta lecturaAltaAnterior, TarifaAlta tarifa) {
+		public String traerPeriodoMes(LocalDate fecha) {
+			return  fecha.getMonth().toString();
+		}
+		
+		public float calcularConsumoAlta(Alta lecturaAlta, Alta lecturaAltaAnterior, TarifaAlta tarifa) {
 			return tarifa.calcularTotalTarifa(lecturaAltaAnterior.getConsumoHsPico() - lecturaAlta.getConsumoHsPico(),
 					lecturaAltaAnterior.getConsumoHsResto() - lecturaAlta.getConsumoHsResto(),
 					lecturaAltaAnterior.getConsumoHsValle() - lecturaAlta.getConsumoHsValle());
 		}
 		
-		public float clacularConsumoBaja(Baja lecturaBaja, Baja lecturaBajaAnterior, TarifaBaja tarifa) {
+		public float calcularConsumoBaja(Baja lecturaBaja, Baja lecturaBajaAnterior, TarifaBaja tarifa) {
 			return tarifa.calcularTotalTarifa(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo());
 		}
 
-		public float generarTotal(Medidor medidor)throws Exception { 
+		public float generarTotal(Medidor medidor,List<Lectura> lect)throws Exception { 
 			float total = 0;
-			List<Lectura> lect = this.traerLecturas(medidor);
 			if (lect.size() > 1) {
 				if (lect.get(lect.size() - 1) instanceof Alta) {
-					total = clacularConsumoAlta((Alta) lect.get(lect.size() - 1), (Alta) lect.get(lect.size() - 2),
+					total = calcularConsumoAlta((Alta) lect.get(lect.size() - 1), (Alta) lect.get(lect.size() - 2),
 							(TarifaAlta) medidor.getTarifa());
 					
 				} else {
-					total = clacularConsumoBaja((Baja) lect.get(lect.size() - 1), (Baja) lect.get(lect.size() - 2),
+					total = calcularConsumoBaja((Baja) lect.get(lect.size() - 1), (Baja) lect.get(lect.size() - 2),
 							(TarifaBaja) medidor.getTarifa());
 				}
 			}else {
@@ -583,19 +586,15 @@ public class SistemaElectrico {
 			}
 		return total;
 		}
-		
 			
 		public Factura generarFactura(Medidor medidor) throws Exception{		
-			
-			medidor.getNroSerie();
-			medidor.getDomicilioMedidor();
-			traerCliente(medidor.getCliente().getNroCliente());
-			generarTotal(medidor);
+			List<Lectura> lect = this.traerLecturas(medidor);
 			
 			
-			Factura fac = null;		
+			Factura fac = new traerPeriodoMes(Factura(lect.get(lect.size()-1).getFecha()),,,generarTotal(medidor,lect),medidor.getNroSerie(),traerCliente(medidor.getCliente().getNroCliente()));
 		return fac;
 		}
-
+		
+		
 
 }
