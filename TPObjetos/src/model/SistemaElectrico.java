@@ -565,36 +565,41 @@ public class SistemaElectrico {
 					lecturaAltaAnterior.getConsumoHsResto() - lecturaAlta.getConsumoHsResto(),
 					lecturaAltaAnterior.getConsumoHsValle() - lecturaAlta.getConsumoHsValle());
 		}
-		
-		public float calcularConsumoBaja(Baja lecturaBaja, Baja lecturaBajaAnterior, TarifaBaja tarifa) {
-			return tarifa.calcularTotalTarifa(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo());
-		}
 
-		public float generarTotal(Medidor medidor,List<Lectura> lect)throws Exception { 
+		public float generarTotal(int idMedidor)throws Exception { 
+			Medidor medidor = traerMedidor(idMedidor);
+			List<Lectura> lect = this.traerLecturas(medidor);
 			float total = 0;
+			float fijo = 0;
 			if (lect.size() > 1) {
-				if (lect.get(lect.size() - 1) instanceof Alta) {
-					total = calcularConsumoAlta((Alta) lect.get(lect.size() - 1), (Alta) lect.get(lect.size() - 2),
-							(TarifaAlta) medidor.getTarifa());
+				if (lect.get(lect.size() - 1) instanceof Baja) {
+					Baja lecturaBaja = (Baja) lect.get(lect.size() - 1);
+					Baja lecturaBajaAnterior = (Baja) lect.get(lect.size() - 2);
+					TarifaBaja tf = (TarifaBaja) medidor.getTarifa();
+					total = tf.calcularTotalTarifa(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo());
+					fijo =(float) tf.pasarDetalle(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo()).get(0).getValor();
+					float variable = (float) tf.pasarDetalle(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo()).get(1).getValor();
+					Factura fac = new Factura(traerPeriodoMes(lecturaBaja.getFecha()),fijo,variable,total,medidor.getNroSerie(),traerCliente(medidor.getCliente().getNroCliente()).toString());
 					
 				} else {
-					total = calcularConsumoBaja((Baja) lect.get(lect.size() - 1), (Baja) lect.get(lect.size() - 2),
-							(TarifaBaja) medidor.getTarifa());
+					Alta lecturaAlta = (Alta) lect.get(lect.size() - 1);
+					Alta lecturaAltaAnterior = (Alta) lect.get(lect.size() - 2);
+					TarifaAlta tf = (TarifaAlta) medidor.getTarifa();
+					total = tf.calcularTotalTarifa(lecturaAltaAnterior.getConsumoHsPico() - lecturaAlta.getConsumoHsPico(),
+							lecturaAltaAnterior.getConsumoHsResto() - lecturaAlta.getConsumoHsResto(),
+							lecturaAltaAnterior.getConsumoHsValle() - lecturaAlta.getConsumoHsValle());
+					fijo = (float) tf.pasarDetalle(lecturaAltaAnterior.getConsumoHsPico() - lecturaAlta.getConsumoHsPico(),
+							lecturaAltaAnterior.getConsumoHsResto() - lecturaAlta.getConsumoHsResto(),
+							lecturaAltaAnterior.getConsumoHsValle() - lecturaAlta.getConsumoHsValle()).getValor();
+					float variablePico =
+					float variableResto =
+					float variableValle =
 				}
 			}else {
 				throw new Exception ("No hay suficientes Lecturas para generar el Total");
 			}
 		return total;
-		}
-			
-		public Factura generarFactura(Medidor medidor) throws Exception{		
-			List<Lectura> lect = this.traerLecturas(medidor);
-			
-			
-			Factura fac = new traerPeriodoMes(Factura(lect.get(lect.size()-1).getFecha()),,,generarTotal(medidor,lect),medidor.getNroSerie(),traerCliente(medidor.getCliente().getNroCliente()));
-		return fac;
-		}
-		
+		}		
 		
 
 }

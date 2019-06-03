@@ -89,11 +89,15 @@ public class TarifaBaja extends Tarifa {
 		}
 		return resultado;
 	}
-	public DetalleBaja pasarDetalle(int consumo) {
-		DetalleBaja det = null;
+	public List<DetalleBaja> pasarDetalle(int consumo) {
+		List<DetalleBaja> det = null;
 		for (DetalleBaja d : lstDetalle) {
 			if ((consumo >= d.getDesde()) && (consumo < d.getHasta())) {
-				det = d;
+				if (d.getDetalleConcepto().contains("Cargo Fijo")) {
+					det.add(d);
+				}
+				if (d.getDetalleConcepto().contains("Cargo Variable")) {
+					det.add(d);
 				}
 			}
 		return det;

@@ -72,27 +72,30 @@ public class TarifaAlta extends Tarifa {
 	
 	public float calcularTotalTarifa(int consumoPico, int consumoResto, int consumoValle){
 		
+		int auxilarConsumo = consumoPico + consumoResto + consumoValle;
+		
 		float resultado=0;
-
+		
 		
 			for (DetalleAlta d: lstDetalle){
-				if() {
-					if(d.getDetalleConcepto().contentEquals("Cargo Fijo")){
-						resultado = (float) (resultado + d.getValor());
-					}
-					
-					if(d.getDetalleConcepto().contentEquals("Cargo Variable Pico")){
-						resultado = (float) (resultado + d.getValor()*consumoPico);
-					}
-					
-					if(d.getDetalleConcepto().contentEquals("Cargo Variable Resto")){
-						resultado = (float) (resultado + d.getValor()*consumoResto);
-					}
-					
-					if(d.getDetalleConcepto().contentEquals("Cargo Variable Valle")){
-						resultado = (float) (resultado + d.getValor()*consumoValle);
-					}
-					
+				if(auxilarConsumo<300){
+					if(tensionContratada.indexOf(str)) {
+						if(d.getDetalleConcepto().contentEquals("Cargo Fijo")){
+							resultado = (float) (resultado + d.getValor());
+						}
+						
+						if(d.getDetalleConcepto().contentEquals("Cargo Variable Pico")){
+							resultado = (float) (resultado + d.getValor()*consumoPico);
+						}
+						
+						if(d.getDetalleConcepto().contentEquals("Cargo Variable Resto")){
+							resultado = (float) (resultado + d.getValor()*consumoResto);
+						}
+						
+						if(d.getDetalleConcepto().contentEquals("Cargo Variable Valle")){
+							resultado = (float) (resultado + d.getValor()*consumoValle);
+						}	
+					}					
 				}
 			}
 		return resultado;
