@@ -52,7 +52,7 @@ public class TarifaAlta extends Tarifa {
 		return true;
 	}
 	
-	public float calcularTotalTarifa(float consumoPico, float consumoResto, float consumoValle){
+	public float calcularTotalTarifa(int consumoPico, int consumoResto, int consumoValle){
 		
 		float resultado=0;
 

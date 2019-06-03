@@ -62,5 +62,9 @@ public class Medidor {
 		return "Numero de Serie:" + nroSerie + "Domicilio:" + domicilioMedidor + "Cliente:" + cliente.toString()
 				+ "Tarifa:" + tarifa.toString();
 	}
-
+	
+	
+	
+	
+	
 }

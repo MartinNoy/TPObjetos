@@ -557,15 +557,14 @@ public class SistemaElectrico {
 	 //----------------------------------------Generar Total a pagar---------------------------------------------------
 		//Franco: todavia le falta.. paciencia.
 		public float clacularConsumoAlta(Alta lecturaAlta, Alta lecturaAltaAnterior, TarifaAlta tarifa) {
-			int valorConsumo;
-			
-			return 0 ;
+			return tarifa.calcularTotalTarifa(lecturaAltaAnterior.getConsumoHsPico() - lecturaAlta.getConsumoHsPico(),
+					lecturaAltaAnterior.getConsumoHsResto() - lecturaAlta.getConsumoHsResto(),
+					lecturaAltaAnterior.getConsumoHsValle() - lecturaAlta.getConsumoHsValle());
 		}
 		
-		public float clacularConsumoBaja(Baja lecturaBaja, Baja lecturaBajaAnterior, TarifaBaja tarifa){
-			float ValorConsumo=0;
-			int Consumo = lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo();
-			return ValorConsumo;
+		public float clacularConsumoBaja(Baja lecturaBaja, Baja lecturaBajaAnterior, TarifaBaja tarifa) {
+			float ValorConsumo = 0;
+			return ValorConsumo = tarifa.calcularTotalTarifa(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo());
 		}
 
 		public float generarTotal(Medidor medidor)throws Exception { 
@@ -586,20 +585,12 @@ public class SistemaElectrico {
 		return total;
 		}
 		
-			/*
+			
 			public Factura generarFactura() {
 				Factura fac = new Factura();		
 				return fac;
 			}
-			 */
-
-		
-		
-		
-		
-		
-		
-		
+			
 		
 		
 }
