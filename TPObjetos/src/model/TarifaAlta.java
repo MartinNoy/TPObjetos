@@ -52,6 +52,73 @@ public class TarifaAlta extends Tarifa {
 		return true;
 	}
 	
+	public void agregarDetalle() {
+		/*
+		DetalleAlta d = new DetalleAlta(detalleConcepto, unidad, supererLimite, valor);
+		lstDetalle.add(d);
+		*/
+		
+		DetalleAlta d01= new DetalleAlta("Cargo Fijo", "$/mes", false, 3226.41);
+		DetalleAlta d02= new DetalleAlta("Cargo Variable Pico", "$/kWh", false, 2.260);
+		DetalleAlta d03= new DetalleAlta("Cargo Variable Resto", "$/kWh", false, 2.160);
+		DetalleAlta d04= new DetalleAlta("Cargo Variable Valle", "$/kWh", false, 2.061);
+
+		DetalleAlta d11= new DetalleAlta("Cargo Fijo", "$/mes", false, 3226.09);
+		DetalleAlta d12= new DetalleAlta("Cargo Variable Pico", "$/kWh", false, 2.148);
+		DetalleAlta d13= new DetalleAlta("Cargo Variable Resto", "$/kWh", false, 2.053);
+		DetalleAlta d14= new DetalleAlta("Cargo Variable Valle", "$/kWh", false, 1.959);
+
+		DetalleAlta d21= new DetalleAlta("Cargo Fijo", "$/mes", false, 3224.11);
+		DetalleAlta d22= new DetalleAlta("Cargo Variable Pico", "$/kWh", false, 2.060);
+		DetalleAlta d23= new DetalleAlta("Cargo Variable Resto", "$/kWh", false, 1.969);
+		DetalleAlta d24= new DetalleAlta("Cargo Variable Valle", "$/kWh", false, 1.879);
+
+		DetalleAlta d31= new DetalleAlta("Cargo Fijo", "$/mes", false, 3226.41);
+		DetalleAlta d32= new DetalleAlta("Cargo Variable Pico", "$/kWh", false, 3.286);
+		DetalleAlta d33= new DetalleAlta("Cargo Variable Resto", "$/kWh", false, 3.138);
+		DetalleAlta d34= new DetalleAlta("Cargo Variable Valle", "$/kWh", false, 2.990);
+
+		DetalleAlta d41= new DetalleAlta("Cargo Fijo", "$/mes", false, 3226.09);
+		DetalleAlta d42= new DetalleAlta("Cargo Variable Pico", "$/kWh", false, 3.123);
+		DetalleAlta d43= new DetalleAlta("Cargo Variable Resto", "$/kWh", false, 2.983);
+		DetalleAlta d44= new DetalleAlta("Cargo Variable Valle", "$/kWh", false, 2.841);
+
+		DetalleAlta d51= new DetalleAlta("Cargo Fijo", "$/mes", false, 3224.11);
+		DetalleAlta d52= new DetalleAlta("Cargo Variable Pico", "$/kWh", false, 2.995);
+		DetalleAlta d53= new DetalleAlta("Cargo Variable Resto", "$/kWh", false, 2.860);
+		DetalleAlta d54= new DetalleAlta("Cargo Variable Valle", "$/kWh", false, 2.125);
+
+		lstDetalle.add(d01);
+		lstDetalle.add(d02);
+		lstDetalle.add(d03);
+		lstDetalle.add(d04);
+		
+		lstDetalle.add(d11);
+		lstDetalle.add(d12);
+		lstDetalle.add(d13);
+		lstDetalle.add(d14);
+		
+		lstDetalle.add(d21);
+		lstDetalle.add(d22);
+		lstDetalle.add(d23);
+		lstDetalle.add(d24);
+		
+		lstDetalle.add(d31);
+		lstDetalle.add(d32);
+		lstDetalle.add(d33);
+		lstDetalle.add(d34);
+		
+		lstDetalle.add(d41);
+		lstDetalle.add(d42);
+		lstDetalle.add(d43);
+		lstDetalle.add(d44);
+		
+		lstDetalle.add(d51);
+		lstDetalle.add(d52);
+		lstDetalle.add(d53);
+		lstDetalle.add(d54);
+	}
+	
 	public float calcularTotalTarifa(int consumoPico, int consumoResto, int consumoValle){
 		
 		float resultado=0;
