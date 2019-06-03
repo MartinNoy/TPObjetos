@@ -75,15 +75,14 @@ public class SistemaElectrico {
 	
 	
 
-	public boolean agregarMedidor(String domicilio, boolean esBaja, int dni, Tarifa tarifa) throws Exception {
-		if (traerMedidor(dni) != null)
-			throw new Exception("El cliente ya existe");
+	public boolean agregarMedidor(String domicilio, boolean esBaja, int dni, String servicio) throws Exception {
+		if (traerCliente(dni) == null)
+			throw new Exception("El cliente no existe");
 		int id = 1;
 		if (!medidores.isEmpty())
 			id = medidores.get(medidores.size() - 1).getNroSerie() + 1;
-		Medidor medidor = new Medidor(id, domicilio, esBaja, traerCliente(dni), tarifa);
+		Medidor medidor = new Medidor(id, domicilio, esBaja, traerCliente(dni), traerTarifaBaja(servicio));
 		medidores.add(medidor);
-
 		return true;
 	}
 
