@@ -89,5 +89,14 @@ public class TarifaBaja extends Tarifa {
 		}
 		return resultado;
 	}
+	public DetalleBaja pasarDetalle(int consumo) {
+		DetalleBaja det = null;
+		for (DetalleBaja d : lstDetalle) {
+			if ((consumo >= d.getDesde()) && (consumo < d.getHasta())) {
+				det = d;
+				}
+			}
+		return det;
+	}
 
 }

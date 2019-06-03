@@ -563,8 +563,7 @@ public class SistemaElectrico {
 		}
 		
 		public float clacularConsumoBaja(Baja lecturaBaja, Baja lecturaBajaAnterior, TarifaBaja tarifa) {
-			float ValorConsumo = 0;
-			return ValorConsumo = tarifa.calcularTotalTarifa(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo());
+			return tarifa.calcularTotalTarifa(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo());
 		}
 
 		public float generarTotal(Medidor medidor)throws Exception { 
@@ -586,11 +585,17 @@ public class SistemaElectrico {
 		}
 		
 			
-			public Factura generarFactura() {
-				Factura fac = new Factura();		
-				return fac;
-			}
+		public Factura generarFactura(Medidor medidor) throws Exception{		
 			
-		
-		
+			medidor.getNroSerie();
+			medidor.getDomicilioMedidor();
+			traerCliente(medidor.getCliente().getNroCliente());
+			generarTotal(medidor);
+			
+			
+			Factura fac = null;		
+		return fac;
+		}
+
+
 }

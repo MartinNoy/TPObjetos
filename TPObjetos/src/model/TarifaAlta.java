@@ -58,7 +58,7 @@ public class TarifaAlta extends Tarifa {
 
 		
 			for (DetalleAlta d: lstDetalle){
-			
+				if() {
 					if(d.getDetalleConcepto().contentEquals("Cargo Fijo")){
 						resultado = (float) (resultado + d.getValor());
 					}
@@ -74,8 +74,23 @@ public class TarifaAlta extends Tarifa {
 					if(d.getDetalleConcepto().contentEquals("Cargo Variable Valle")){
 						resultado = (float) (resultado + d.getValor()*consumoValle);
 					}
+					
+				}
 			}
 		return resultado;
 	}
 
-}
+	public DetalleAlta pasarDetalle(int consumoPico, int consumoResto, int consumoValle){
+		DetalleAlta det = null;
+		for (DetalleAlta d: lstDetalle){
+			if () {
+				det=d;				
+			}
+		}
+	return det;
+	}
+
+	}
+		
+	
+
