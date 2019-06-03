@@ -72,6 +72,8 @@ public class SistemaElectrico {
 	
 	
 
+	
+	
 
 	public boolean agregarMedidor(String domicilio, boolean esBaja, int dni, Tarifa tarifa) throws Exception {
 		if (traerMedidor(dni) != null)
@@ -294,10 +296,10 @@ public class SistemaElectrico {
 	
 	// ----------------------------------------Comienzo ABM Lectura-------------------------------------------------
 	
-	public boolean agregarLectura(LocalDate fecha, LocalTime hora,int dni, int nroSerie )throws Exception {
+	public boolean agregarLectura(LocalDate fecha, LocalTime hora,int dni, int nroSerie, int consumo )throws Exception {
 		int id = 1;
 		if (!lecturas.isEmpty())id=lecturas.get(lecturas.size()-1).getIdLectura()+1;
-		Lectura lectura = new Lectura(id,fecha,hora,traerInspector(dni),traerMedidor(nroSerie));
+		Lectura lectura = new Baja(id,fecha,hora,traerInspector(dni),traerMedidor(nroSerie),consumo);
 		Lectura existeLectura=traerLectura(lectura.getIdLectura());
 		if(existeLectura!=null) {
 			throw new Exception ("No puedo agregar la lectura"+lectura.getIdLectura()+" ya existe");
@@ -305,25 +307,17 @@ public class SistemaElectrico {
 		return lecturas.add(lectura);
 	}
 	
-	public boolean agregarLectura(Alta Alta)throws Exception {
-
-	    Lectura existeLectura=traerLectura(Alta.getIdLectura());
-
+	public boolean agregarLectura(LocalDate fecha, LocalTime hora,int dni, int nroSerie, int hsPico, int hsValle, int hsResto )throws Exception {
+		int id = 1;
+		if (!lecturas.isEmpty())id=lecturas.get(lecturas.size()-1).getIdLectura()+1;
+		Lectura lectura = new Alta(id,fecha,hora,traerInspector(dni),traerMedidor(nroSerie), hsResto, hsValle, hsPico);
+		Lectura existeLectura=traerLectura(lectura.getIdLectura());
 		if(existeLectura!=null) {
-			throw new Exception ("No puedo agregar la lectura"+Alta.getIdLectura()+", ya existe");
+			throw new Exception ("No puedo agregar la lectura"+lectura.getIdLectura()+" ya existe");
 		}
-		return lecturas.add(Alta);
+		return lecturas.add(lectura);
 	}
 	
-	 public boolean agregarLectura(Baja Baja)throws Exception {
-
-	    	Lectura existeLectura=traerLectura(Baja.getIdLectura());
-
-			if(existeLectura!=null) {
-				throw new Exception ("No puedo agregar la lectura"+Baja.getIdLectura()+" ya existe");
-			}
-			return lecturas.add(Baja);
-	}
 	 
 	 
 	 public boolean eliminarLectura(int idLectura)throws Exception {
@@ -351,7 +345,7 @@ public class SistemaElectrico {
 		}
 	 
 	 
-	 public boolean modificarBaja(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumo )throws Exception  { 
+	 public boolean modificarLectura(int idLectura, LocalDate fecha, LocalTime hora, Inspector inspector, Medidor medidor, int consumo )throws Exception  { 
 			Baja existeLectura=traerBaja(idLectura);
 
 			if(existeLectura==null) throw new Exception ("La lectura Alta Demanda NO existe");	
@@ -363,8 +357,9 @@ public class SistemaElectrico {
 			return true;
 		}
 	 
-	 public Lectura traerLectura(LocalDate fecha, Medidor medidor) {
+	 public Lectura traerLectura(LocalDate fecha, int nroSerie) {
 		 Lectura Lectura = null;
+		 Medidor medidor = traerMedidor(nroSerie);
 		 int cont=0;
 		 while(lecturas.size()>cont && Lectura == null) {
 			 if(lecturas.get(cont).getFecha().isEqual(fecha)&&lecturas.get(cont).getMedidor().equals(medidor)) {
