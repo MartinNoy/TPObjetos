@@ -143,18 +143,16 @@ public class SistemaElectrico {
 
 	// ----------------------------------------Comienzo ABM Tarifa-----------------------------------------------
 
-	public boolean agregarTarifa(String servicio, String tensionContratada, int limite) throws Exception {
+	public boolean agregarTarifa(String servicio, String tensionContratada, int limite, double v1,double v2,double v3, double v4 ) throws Exception {
 		boolean agregado = false;
 		Tarifa tarifa = new TarifaAlta(servicio, tensionContratada,limite);
+		TarifaAlta tarifaAlta = (TarifaAlta) tarifa;
+		tarifaAlta.agregarDetalle(v1, v2, v3, v4);
 		if (tarifas.isEmpty()) {
 			agregado = tarifas.add(tarifa);
 		} else {
-			if (traerTarifa(servicio) == null) {
-				agregado = tarifas.add(tarifa);
-			} else {
 				throw new Exception("Error: La Tarifa ya ha sido agregada a la lista de Tarifas anteriormente");
 			}
-		}
 		return agregado;
 	}
 
@@ -221,12 +219,15 @@ public class SistemaElectrico {
 		}
 		return tarifaEnviada;
 	
-	}public TarifaAlta traerTarifaAlta(String servicioSoicitado) {
+	}public TarifaAlta traerTarifaAlta(String tensionContratada) {
 		TarifaAlta tarifaEnviada = null;
 		int indice = 0;
 		while (indice < tarifas.size()) {
-			if (tarifas.get(indice).equals(new Tarifa(servicioSoicitado)) && tarifas.get(indice) instanceof TarifaAlta) {
+			if (tarifas.get(indice) instanceof TarifaAlta) {
+				TarifaAlta tarifa = (TarifaAlta) tarifas.get(indice); 
+				if(tarifa.getTensionContratada()==tensionContratada) {
 				tarifaEnviada = (TarifaAlta) tarifas.get(indice);
+				}
 			}
 			indice++;
 		}
@@ -362,7 +363,7 @@ public class SistemaElectrico {
 		 Medidor medidor = traerMedidor(nroSerie);
 		 int cont=0;
 		 while(lecturas.size()>cont && Lectura == null) {
-			 if(lecturas.get(cont).getFecha().isEqual(fecha)&&lecturas.get(cont).getMedidor().equals(medidor)) {
+			 if(lecturas.get(cont).getFecha()==fecha&&lecturas.get(cont).getMedidor().getNroSerie()==medidor.getNroSerie()) {
 				 Lectura = lecturas.get(cont);
 			 }
 			 cont++;
