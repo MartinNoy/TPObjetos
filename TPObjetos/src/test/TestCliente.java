@@ -11,6 +11,11 @@ public class TestCliente {
 
 			System.out.println(se.traerTarifaBaja("Baja").getLstDetalle());
 		//float numereo = se.generarTotal(se.traerMedidor(12345678));
+			
+			se.agregarTarifa("Alta", "BT<300kW", 300 );
+			se.traerTarifaAlta("Alta").agregarDetalle();
+			
+			System.out.println(se.traerTarifaAlta("Alta").getLstDetalle());
 		
 		}catch (Exception e) {
 			System.out.println(e.getMessage());

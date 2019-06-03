@@ -50,7 +50,7 @@ public class DetalleAlta {
 	@Override
 	public String toString() {
 		return "DetalleBaja [detalleConcepto=" + detalleConcepto + ", unidad=" + unidad + ", superarLimite="
-				+ superarLimite + ", valor=" + valor + "]";
+				+ superarLimite + ", valor=" + valor + "]" + "\n";
 	}
 
 }
