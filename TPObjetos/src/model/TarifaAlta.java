@@ -79,7 +79,7 @@ public class TarifaAlta extends Tarifa {
 		
 			for (DetalleAlta d: lstDetalle){
 				if(auxilarConsumo<300){
-					if(tensionContratada.indexOf(str)) {
+					if(tensionContratada.indexOf()) {
 						if(d.getDetalleConcepto().contentEquals("Cargo Fijo")){
 							resultado = (float) (resultado + d.getValor());
 						}
@@ -104,7 +104,7 @@ public class TarifaAlta extends Tarifa {
 	public DetalleAlta pasarDetalle(int consumoPico, int consumoResto, int consumoValle){
 		DetalleAlta det = null;
 		for (DetalleAlta d: lstDetalle){
-			if () {
+			if (true) {
 				det=d;				
 			}
 		}

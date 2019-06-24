@@ -20,7 +20,8 @@ public class TestCliente {
 		//-----Agregando Tarifas------
 		try {
 			System.out.println("-------------------------Tarifas------------------------");
-			se.agregarTarifa("Baja");
+			se.agregarTarifa(
+					"Baja");
 			se.traerTarifaBaja("Baja").agregarDetalle();
 
 			System.out.println(se.traerTarifaBaja("Baja").getLstDetalle());
@@ -194,6 +195,11 @@ public class TestCliente {
 			System.out.println(e.getMessage());
 		}
 		
+		try {
+			System.out.println(se.generarTotal(1));			
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 	}
 }

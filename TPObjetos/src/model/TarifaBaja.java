@@ -90,7 +90,7 @@ public class TarifaBaja extends Tarifa {
 		return resultado;
 	}
 	public List<DetalleBaja> pasarDetalle(int consumo) {
-		List<DetalleBaja> det = null;
+		List<DetalleBaja> det = new ArrayList<DetalleBaja>();
 		for (DetalleBaja d : lstDetalle) {
 			if ((consumo >= d.getDesde()) && (consumo < d.getHasta())) {
 				if (d.getDetalleConcepto().contains("Cargo Fijo")) {
@@ -100,7 +100,8 @@ public class TarifaBaja extends Tarifa {
 					det.add(d);
 				}
 			}
-		return det;
 	}
+		return det;
 
+}
 }

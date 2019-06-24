@@ -52,5 +52,12 @@ public class Factura {
 	public void setNombreCliente(String nombreCliente) {
 		this.nombreCliente = nombreCliente;
 	}
+	@Override
+	public String toString() {
+		return "Factura [periodo=" + periodo + ", montoFijo=" + montoFijo + ", montoVariable=" + montoVariable
+				+ ", totalPago=" + totalPago + ", numeroDeMedidor=" + numeroDeMedidor + ", nombreCliente="
+				+ nombreCliente + "]";
+	}
+	
 	
 }
