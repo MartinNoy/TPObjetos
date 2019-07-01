@@ -56,6 +56,11 @@ public class Medidor {
 		this.tarifa = tarifa;
 	}
 
+	public boolean equals(Medidor m) {
+		return this.nroSerie == m.getNroSerie();
+	}
+	
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

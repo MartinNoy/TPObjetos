@@ -9,10 +9,10 @@ import model.*;
 public class TestCliente {
 	public static void main(String[] args) {
 		SistemaElectrico se = new SistemaElectrico();
-		LocalDate fecha1= LocalDate.of(2018, 04, 01);
-		LocalDate fecha2= LocalDate.of(2018, 05, 01);
-		LocalDate fecha3= LocalDate.of(2018, 06, 01);
-		LocalDate fecha4= LocalDate.of(2018, 07, 01);
+		LocalDate fecha1= LocalDate.of(2018, 2, 1);
+		LocalDate fecha2= LocalDate.of(2018, 4, 1);
+		LocalDate fecha3= LocalDate.of(2018, 6, 1);
+		LocalDate fecha4= LocalDate.of(2018, 8, 1);
 		
 		LocalTime hora = LocalTime.of(12,05);
 		
@@ -20,7 +20,8 @@ public class TestCliente {
 		//-----Agregando Tarifas------
 		try {
 			System.out.println("-------------------------Tarifas------------------------");
-			se.agregarTarifa("Baja");
+			se.agregarTarifa(
+					"Baja");
 			se.traerTarifaBaja("Baja").agregarDetalle();
 
 			System.out.println(se.traerTarifaBaja("Baja").getLstDetalle());
@@ -189,11 +190,20 @@ public class TestCliente {
 			se.agregarLectura(fecha3, hora, 14023748, 20, 623);
 			se.agregarLectura(fecha4, hora, 14023748, 20, 976);
 			
-			System.out.println(se.traerLectura(fecha1, 2).toString());
+			System.out.println(se.traerLectura(fecha3, 1).toString());
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
-		
+		try {
+			System.out.println(se.generarFactura(1,2,2018));
+			System.out.println(se.generarFactura(1,3,2018));
+			System.out.println(se.generarFactura(1,4,2018));
+			System.out.println(se.generarFactura(1,5,2018));
+			System.out.println(se.generarFactura(1,6,2018));
+		}catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
+	
 }

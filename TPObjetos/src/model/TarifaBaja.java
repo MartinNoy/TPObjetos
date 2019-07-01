@@ -77,20 +77,19 @@ public class TarifaBaja extends Tarifa {
 		for (DetalleBaja d : lstDetalle) {
 
 			if ((consumo >= d.getDesde()) && (consumo < d.getHasta())) {
-
+				if (d.getDetalleConcepto().contains("Cargo Variable")) {
+					resultado = (float) (resultado + (d.getValor() * consumo));
+				}
 				if (d.getDetalleConcepto().contains("Cargo Fijo")) {
 					resultado = (float) (resultado + d.getValor());
 				}
 
-				if (d.getDetalleConcepto().contains("Cargo Variable")) {
-					resultado = (float) (resultado + d.getValor() * consumo);
-				}
 			}
 		}
 		return resultado;
 	}
 	public List<DetalleBaja> pasarDetalle(int consumo) {
-		List<DetalleBaja> det = null;
+		List<DetalleBaja> det = new ArrayList<DetalleBaja>();
 		for (DetalleBaja d : lstDetalle) {
 			if ((consumo >= d.getDesde()) && (consumo < d.getHasta())) {
 				if (d.getDetalleConcepto().contains("Cargo Fijo")) {
@@ -102,6 +101,6 @@ public class TarifaBaja extends Tarifa {
 			}
 	}
 		return det;
-	}
 
+}
 }
