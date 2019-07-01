@@ -100,6 +100,7 @@ public class TarifaBaja extends Tarifa {
 					det.add(d);
 				}
 			}
+	}
 		return det;
 	}
 
