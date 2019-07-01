@@ -190,6 +190,9 @@ public class TestCliente {
 			se.agregarLectura(fecha3, hora, 14023748, 20, 623);
 			se.agregarLectura(fecha4, hora, 14023748, 20, 976);
 			
+			
+			
+			
 			System.out.println(se.traerLectura(fecha3, 1).toString());
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
