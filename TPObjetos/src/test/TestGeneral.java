@@ -238,9 +238,13 @@ public class TestGeneral {
 			System.out.println(se.generarFactura(4,4,2018).toStringBaja());
 			System.out.println(se.generarFactura(5,3,2018).toStringBaja());
 			
-			System.out.println("Fcturars GRan Demana");
+			//System.out.println("Fcturars GRan Demana");
 			
-			System.out.println(se.generarFactura(22, 2, 2018));
+			//System.out.println(se.generarFactura(22, 2, 2018));
+			
+			for (Factura f: se.reporte7()) {
+				System.out.println(f.toStringBaja());
+			}
 			
 	}
 	

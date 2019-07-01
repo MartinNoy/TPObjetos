@@ -734,7 +734,29 @@ public class SistemaElectrico {
 		return fac;
 	}
 		
-	
+		
+		
+	public List<Factura> reporte7 () {
+		List<Factura> facturasADevolver = this.facturas;
+		Factura auxF;
+		for (int i = 0; i<facturasADevolver.size();i++ ) {
+			for (int j = 0; j<facturasADevolver.size()-1; j++ ) {
+				if (facturasADevolver.get(j).getTotalPago()<facturasADevolver.get(j+1).getTotalPago()) {
+					auxF=facturasADevolver.get(j+1);
+					facturasADevolver.set(j+1,facturasADevolver.get(j));
+					facturasADevolver.set(j, auxF);
+				}
+			}
+				
+		}
+		
+		List<Factura> facturasADevolver2 = new ArrayList<Factura>();
+		for (int i = 0; i<3;i++) {
+			facturasADevolver2.set(i, facturasADevolver.get(i));
+		}
+		
+		return facturasADevolver2; 
+	}
 	
 	
 	
