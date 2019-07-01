@@ -201,6 +201,8 @@ public class TestCliente {
 			System.out.println(se.generarFactura(1,4,2018));
 			System.out.println(se.generarFactura(1,5,2018));
 			System.out.println(se.generarFactura(1,6,2018));
+			System.out.println(se.generarFactura(1,7,2018));
+		
 		}catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

@@ -400,6 +400,17 @@ public class SistemaElectrico {
 		}
 		return lecturaEncontrada;
 	}
+	public Lectura traerLectura(LocalDate fecha) {
+		int i = 0;
+		Lectura lecturaEncontrada = null;
+		while (i < lecturas.size() && lecturaEncontrada == null) {
+			if (lecturas.get(i).getFecha().isEqual(fecha)) {
+				lecturaEncontrada = lecturas.get(i);
+			}
+			i++;
+		}
+		return lecturaEncontrada;
+	}
 
 	public Alta traerAlta(int idLectura) {
 
@@ -458,7 +469,7 @@ public class SistemaElectrico {
 		List<Lectura> lecturasPorMedidor = traerLecturas(medidor);
 		List<Lectura> lecturasPorMedidorYPeriodo = new ArrayList<Lectura>();
 		int indice = 0;
-		if (fecha.getMonthValue() >= 2){
+		if (fecha.getMonthValue() > 2){
 			if (lecturasPorMedidor.size() > 1) {
 				while (lecturasPorMedidor.size() > indice) {
 					if (fecha.getYear() == lecturasPorMedidor.get(indice).getFecha().getYear()) {
@@ -474,8 +485,12 @@ public class SistemaElectrico {
 				lecturasPorMedidorYPeriodo.add(lecturasPorMedidor.get(indice));
 			}			
 		}else {
-			lecturasPorMedidorYPeriodo.add(lecturasPorMedidor.tr);
-			
+			if (this.traerLectura(LocalDate.of(fecha.getYear(), 2, 1)) != null){
+				lecturasPorMedidorYPeriodo.add(this.traerLectura(LocalDate.of(fecha.getYear(), 2, 1)));	
+			}
+			if(this.traerLectura(LocalDate.of(fecha.getYear()-1, 12, 1))!= null){
+				lecturasPorMedidorYPeriodo.add(this.traerLectura(LocalDate.of(fecha.getYear()-1, 12, 1)));				
+			}
 		}
 
 		return lecturasPorMedidorYPeriodo;
