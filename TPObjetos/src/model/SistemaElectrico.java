@@ -15,12 +15,13 @@ public class SistemaElectrico {
 	List<Factura> facturas = new ArrayList<Factura>();
 
 	public SistemaElectrico(List<Zona> zonas, List<Tarifa> tarifas, List<Cliente> clientes, List<Medidor> medidores,
-			List<Lectura> lecturas, List<Factura> facturas) {
+			List<Lectura> lecturas, List<Inspector> inspectores, List<Factura> facturas) {
 		this.clientes = clientes;
 		this.zonas = zonas;
 		this.tarifas = tarifas;
 		this.medidores = medidores;
 		this.lecturas = lecturas;
+		this.inspectores = inspectores;
 		this.facturas = facturas;
 	}
 
@@ -67,7 +68,15 @@ public class SistemaElectrico {
 	public void setLecturas(List<Lectura> lecturas) {
 		this.lecturas = lecturas;
 	}
-
+	
+	public List<Inspector> getInspectores(){
+		return inspectores;
+	}
+	
+	public void setInspectores(List<Inspector> inspectores) {
+		this.inspectores = inspectores;
+	}
+	
 	public List<Factura> getFacturas() {
 		return facturas;
 	}
@@ -140,11 +149,9 @@ public class SistemaElectrico {
 		return medidor;
 	}
 
-	// ----------------------------------------Fin ABM
-	// Medidor---------------------------------------------------
+	// ----------------------------------------Fin ABM Medidor---------------------------------------------------
 
-	// ----------------------------------------Comienzo ABM
-	// Tarifa-----------------------------------------------
+	// ----------------------------------------Comienzo ABM Tarifa-----------------------------------------------
 
 	public boolean agregarTarifa(String servicio, String tensionContratada, int limite, double v1, double v2, double v3,
 			double v4) throws Exception {
@@ -242,11 +249,9 @@ public class SistemaElectrico {
 		return tarifaEnviada;
 	}
 
-	// ----------------------------------------Fin ABM
-	// Tarifa----------------------------------------------------
+	// ----------------------------------------Fin ABM Tarifa----------------------------------------------------
 
-	// ----------------------------------------Comienzo ABM
-	// Zona-------------------------------------------------
+	// ----------------------------------------Comienzo ABM Zona-------------------------------------------------
 
 	public boolean agregarZona(String nombre) throws Exception {
 		int id = 1;
@@ -304,11 +309,9 @@ public class SistemaElectrico {
 		return zonaEncontrada;
 	}
 
-	// ----------------------------------------Fin ABM
-	// Zona---------------------------------------------------------
+	// ----------------------------------------Fin ABM Zona---------------------------------------------------------
 
-	// ----------------------------------------Comienzo ABM
-	// Lectura-------------------------------------------------
+	// ----------------------------------------Comienzo ABM Lectura-------------------------------------------------
 
 	public boolean agregarLectura(LocalDate fecha, LocalTime hora, int dni, int nroSerie, int consumo)
 			throws Exception {
