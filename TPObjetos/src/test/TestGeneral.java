@@ -96,11 +96,30 @@ public class TestGeneral {
 					se.agregarMedidor("Alcorta327", true, 00000023, "Baja");
 					se.agregarMedidor("Alcorta328", true, 00000024, "Baja");
 					se.agregarMedidor("Alcorta329", true, 00000020, "Baja");
-					System.out.println(se.getmedidores());
 					
 				}catch(Exception e) {
 					System.out.println(e.getMessage());
 				}
+				try {
+					se.agregarCliente("Lanus", "Melina","Baustian",00000117);		
+					se.agregarCliente("Lanus", "Carlos","Carpi",00000123);
+					se.agregarCliente("Burzaco", "Santiago", "Marchese", 00000124);
+					se.agregarCliente("Burzaco", "Martin", "Molina", 00000120);
+					
+					System.out.println("-------------------------Medidores Alta------------------------");
+					se.agregarMedidor("Alcorta410", false, 00000117, "Alta");
+					se.agregarMedidor("Alcorta411", false, 00000123, "Alta");
+					se.agregarMedidor("Alcorta412", false, 00000124, "Alta");
+					se.agregarMedidor("Alcorta413", false, 00000120, "Alta");
+					
+
+					System.out.println(se.getmedidores());
+					
+					
+				}catch(Exception e) {
+					System.out.println(e.getMessage());
+				}
+				
 		//-----Agregando Inspector------
 		System.out.println("-------------------------Inspectores------------------------");
 		se.agregarIspector("Julian", "Verdirame", 14023748, "Lanus");
@@ -191,23 +210,38 @@ public class TestGeneral {
 			se.agregarLectura(fecha3, hora, 14023748, 20, 623);
 			se.agregarLectura(fecha4, hora, 14023748, 20, 976);
 			
+			se.agregarLectura(fecha1, hora, 14023748, 21, 1200, 100, 50);
+			se.agregarLectura(fecha2, hora, 14023748, 21, 2060, 200, 140);
+			se.agregarLectura(fecha3, hora, 14023748, 21, 3210, 240, 220);
+			se.agregarLectura(fecha4, hora, 14023748, 21, 4200, 305, 420);
+			se.agregarLectura(fecha1, hora, 14023748, 22, 1200, 100, 30);
+			se.agregarLectura(fecha2, hora, 14023748, 22, 2200, 200, 40);
+			se.agregarLectura(fecha3, hora, 14023748, 22, 3200, 300, 50);
+			se.agregarLectura(fecha4, hora, 14023748, 22, 4400, 400, 60);
+			se.agregarLectura(fecha1, hora, 14023748, 23, 1800, 200, 120);
+			se.agregarLectura(fecha2, hora, 14023748, 23, 2200, 300, 130);
+			se.agregarLectura(fecha3, hora, 14023748, 23, 3200, 400, 420);
+			se.agregarLectura(fecha4, hora, 14023748, 23, 4050, 430, 520);
+			
+			
 			System.out.println(se.traerLectura(fecha3, 1).toString());
-			System.out.println(se.getLecturas());
+			System.out.println(se.getLecturas().toString());
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
 		
-		try {
-			System.out.println(se.generarFactura(1,2,2018));
-			System.out.println(se.generarFactura(1,3,2018));
-			System.out.println(se.generarFactura(1,4,2018));
-			System.out.println(se.generarFactura(1,5,2018));
-			System.out.println(se.generarFactura(1,6,2018));
-			System.out.println(se.generarFactura(1,7,2018));
-		
-		}catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
+			System.out.println(se.generarFactura(1,4,2018).toStringBaja());
+			System.out.println(se.generarFactura(1,5,2018).toStringBaja());
+			System.out.println(se.generarFactura(2,3,2018).toStringBaja());
+			System.out.println(se.generarFactura(3,4,2018).toStringBaja());
+			System.out.println(se.generarFactura(2,5,2018).toStringBaja());
+			System.out.println(se.generarFactura(4,4,2018).toStringBaja());
+			System.out.println(se.generarFactura(5,3,2018).toStringBaja());
+			
+			System.out.println("Fcturars GRan Demana");
+			
+			System.out.println(se.generarFactura(22, 2, 2018));
+			
 	}
 	
 }

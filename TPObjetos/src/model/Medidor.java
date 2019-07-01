@@ -60,12 +60,10 @@ public class Medidor {
 		return this.nroSerie == m.getNroSerie();
 	}
 	
-	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "Numero de Serie:" + nroSerie + "Domicilio:" + domicilioMedidor + "Cliente:" + cliente.toString()
-				+ "Tarifa:" + tarifa.toString();
+		return "Numero de Serie:" + nroSerie + "Domicilio:" + domicilioMedidor + "Cliente:" + cliente.toString();
 	}
 	
 	

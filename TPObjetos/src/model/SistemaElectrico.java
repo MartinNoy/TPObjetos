@@ -473,30 +473,15 @@ public class SistemaElectrico {
 		List<Lectura> lecturasPorMedidor = traerLecturas(medidor);
 		List<Lectura> lecturasPorMedidorYPeriodo = new ArrayList<Lectura>();
 		int indice = 0;
-		if (fecha.getMonthValue() > 2) {
-			if (lecturasPorMedidor.size() > 1) {
 				while (lecturasPorMedidor.size() > indice) {
-					if (fecha.getYear() == lecturasPorMedidor.get(indice).getFecha().getYear()) {
 						if (lecturasPorMedidor.get(indice).getFecha().getMonthValue() == fecha.getMonthValue() + 1
 								|| lecturasPorMedidor.get(indice).getFecha().getMonthValue() == fecha.getMonthValue()
 										+ 2) {
 							lecturasPorMedidorYPeriodo.add(lecturasPorMedidor.get(indice));
 							lecturasPorMedidorYPeriodo.add(lecturasPorMedidor.get(indice - 1));
 						}
-					}
 					indice++;
 				}
-			} else {
-				lecturasPorMedidorYPeriodo.add(lecturasPorMedidor.get(indice));
-			}
-		} else {
-			if (this.traerLectura(LocalDate.of(fecha.getYear(), 2, 1)) != null) {
-				lecturasPorMedidorYPeriodo.add(this.traerLectura(LocalDate.of(fecha.getYear(), 2, 1)));
-			}
-			if (this.traerLectura(LocalDate.of(fecha.getYear() - 1, 12, 1)) != null) {
-				lecturasPorMedidorYPeriodo.add(this.traerLectura(LocalDate.of(fecha.getYear() - 1, 12, 1)));
-			}
-		}
 
 		return lecturasPorMedidorYPeriodo;
 	}
@@ -643,7 +628,7 @@ public class SistemaElectrico {
 				+ lecturaAltaAnterior.getConsumoHsValle() - lecturaAlta.getConsumoHsValle();
 	}
 
-	public Factura generarFactura(int idMedidor, int periodoSolicitado, int anio) throws Exception {
+	public Factura generarFactura(int idMedidor, int periodoSolicitado, int anio) {
 		Medidor medidor = traerMedidor(idMedidor);
 		Factura fac = null;
 		LocalDate fechaSolicitada = LocalDate.of(anio, periodoSolicitado, 1);
@@ -653,8 +638,8 @@ public class SistemaElectrico {
 		if (!lect.isEmpty()) {
 			if (lect.get(lect.size() - 1) instanceof Baja) {
 				if (lect.size() > 1) {
-					Baja lecturaBaja = (Baja) lect.get(lect.size() - 1);
-					Baja lecturaBajaAnterior = (Baja) lect.get(lect.size() - 2);
+					Baja lecturaBaja = (Baja) lect.get(0);
+					Baja lecturaBajaAnterior = (Baja) lect.get(1);
 					TarifaBaja tf = (TarifaBaja) medidor.getTarifa();
 					total = tf.calcularTotalTarifa(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo());
 					fijo = (float) tf.pasarDetalle(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo()).get(0)
@@ -662,7 +647,7 @@ public class SistemaElectrico {
 					float variable = (float) tf
 							.pasarDetalle(lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo()).get(1)
 							.getValor();
-					fac = new Factura(traerPeriodoMes(lecturaBaja.getFecha()), fijo,
+					fac = new Factura(traerPeriodoMes(fechaSolicitada), fijo,
 							(variable * lecturaBaja.getConsumo() - lecturaBajaAnterior.getConsumo()), total / 2,
 							medidor.getNroSerie(), traerCliente(medidor.getCliente().getNroCliente()).toString(), 0, 0,
 							0);
@@ -679,8 +664,8 @@ public class SistemaElectrico {
 
 			} else {
 				if (lect.size() > 1) {
-					Alta lecturaAlta = (Alta) lect.get(lect.size() - 1);
-					Alta lecturaAltaAnterior = (Alta) lect.get(lect.size() - 2);
+					Alta lecturaAlta = (Alta) lect.get(0);
+					Alta lecturaAltaAnterior = (Alta) lect.get(1);
 					TarifaAlta tf = (TarifaAlta) medidor.getTarifa();
 					total = tf.calcularTotalTarifa(
 							lecturaAltaAnterior.getConsumoHsPico() - lecturaAlta.getConsumoHsPico(),
@@ -711,8 +696,8 @@ public class SistemaElectrico {
 							variableResto);
 
 				} else {
-					Alta lecturaAlta = (Alta) lect.get(lect.size() - 1);
-					Alta lecturaAltaAnterior = (Alta) lect.get(lect.size() - 2);
+					Alta lecturaAlta = (Alta) lect.get(0);
+					Alta lecturaAltaAnterior = (Alta) lect.get(1);
 					TarifaAlta tf = (TarifaAlta) medidor.getTarifa();
 					total = tf.calcularTotalTarifa(
 							lecturaAltaAnterior.getConsumoHsPico() - lecturaAlta.getConsumoHsPico(),
@@ -748,5 +733,10 @@ public class SistemaElectrico {
 		facturas.add(fac);
 		return fac;
 	}
-
+		
+	
+	
+	
+	
+	
 }
